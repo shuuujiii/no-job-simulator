@@ -1,26 +1,29 @@
-import React from 'react';
+import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends Component {
+  render() {
+    return (
+      <div className="App">
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <div>
+            <label>資産</label>
+            <input />
+          </div>
+          <div>
+            <label>支出/月</label>
+            <input />
+          </div>
+          <button type="submit" onClick={() => { alert("aaa") }}>計算</button>
+          <br />
+          <label>残りの無職人生</label>
+          <label>output</label>
+        </header>
+      </div>
+    );
+  }
 }
 
-export default App;
+// export default App;
