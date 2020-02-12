@@ -28,33 +28,34 @@ export default class Simulator extends Component {
         })
     }
     show(e) {
-        this.validation();
-        console.log("error", this.state.error);
-        if (this.state.error !== "") {
-            return;
-        } else {
+        if (this.validateNullorZero(this.state.asset)) {
             this.setState({
-                output: this.calc()
-            });
+                output: "終了",
+                error: "お金を貯めてから無職になってください！"
+            })
+            return;
         }
+
+        if (this.validateNullorZero(this.state.payment)) {
+            this.setState({
+                output: "Infinity",
+                error: "支出がなければ一生無職でも大丈夫です。おめでとう！"
+            });
+            return;
+        }
+        this.setState({
+            output: this.state.asset / this.state.payment,
+            error: "",
+        })
+
     }
 
     numOnly(value) {
         return value.replace(/[^0-9]/g, '');
     }
 
-    calc() {
-        console.log("calc");
-        return this.state.asset / this.state.payment;
-    }
-
-    validation() {
-        if (this.state.payment === "0" || this.state.payment.length === 0) {
-            this.setState({
-                error: "支出がなければ一生無職でも大丈夫です。おめでとう！"
-            });
-        }
-        console.log("validation", this.state.error);
+    validateNullorZero(value) {
+        return (value === "0" || value.length === 0)
     }
 
     render() {
