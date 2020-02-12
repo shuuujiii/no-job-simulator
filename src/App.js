@@ -18,13 +18,13 @@ export default class App extends Component {
 
   handleChangeAsset(e) {
     this.setState({
-      asset: e.target.value
+      asset: this.numOnly(e.target.value)
     })
   }
 
   handleChangePayment(e) {
     this.setState({
-      payment: e.target.value
+      payment: this.numOnly(e.target.value)
     })
   }
   show(e) {
@@ -34,6 +34,10 @@ export default class App extends Component {
     this.setState({
       output: result
     })
+  }
+
+  numOnly(value) {
+    return value.replace(/[^0-9]/g, '');
   }
 
   calc() {
