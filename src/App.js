@@ -9,6 +9,7 @@ export default class App extends Component {
       asset: "",
       payment: "",
       output: "",
+      error: "",
     };
 
     this.handleChangeAsset = this.handleChangeAsset.bind(this);
@@ -28,12 +29,15 @@ export default class App extends Component {
     })
   }
   show(e) {
-    console.log(`${this.state.asset}`);
-    console.log(`${this.state.payment}`);
-    var result = this.calc();
-    this.setState({
-      output: result
-    })
+    this.validation();
+    console.log("error", this.state.error);
+    if (this.state.error !== "") {
+      return;
+    } else {
+      this.setState({
+        output: this.calc()
+      });
+    }
   }
 
   numOnly(value) {
@@ -41,14 +45,23 @@ export default class App extends Component {
   }
 
   calc() {
+    console.log("calc");
     return this.state.asset / this.state.payment;
   }
 
-
+  validation() {
+    if (this.state.payment === "0" || this.state.payment.length === 0) {
+      this.setState({
+        error: "支出がなければ一生無職でも大丈夫です。おめでとう！"
+      });
+    }
+    console.log("validation", this.state.error);
+  }
   render() {
     return (
       <div className="App">
         <header className="App-header">
+          {this.state.error}
           <img src={logo} className="App-logo" alt="logo" />
           <div>
             <label>資産</label>
