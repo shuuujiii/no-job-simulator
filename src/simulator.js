@@ -30,7 +30,7 @@ export default class Simulator extends Component {
     show(e) {
         if (this.validateNullorZero(this.state.asset)) {
             this.setState({
-                output: "終了",
+                output: "終了!",
                 error: "お金を貯めてから無職になってください！"
             })
             return;
@@ -44,7 +44,7 @@ export default class Simulator extends Component {
             return;
         }
         this.setState({
-            output: this.state.asset / this.state.payment,
+            output: this.getOutput(this.state.asset, this.state.payment),
             error: "",
         })
 
@@ -58,6 +58,26 @@ export default class Simulator extends Component {
         return (value === "0" || value.length === 0)
     }
 
+    getOutput(asset, payment) {
+        let allMonth = this.state.asset / this.state.payment;
+        let year = Math.floor(Math.floor(allMonth) / 12);
+        let month = Math.floor(allMonth) - year * 12;
+        let day = Math.floor((allMonth - (month + year * 12)) * 30);
+        let output = "";
+        if (year !== 0) {
+            output += year + "年";
+        }
+        if (month !== 0) {
+            output += month + "ヶ月";
+        }
+        if (day !== 0) {
+            output += day + "日"
+        }
+        if (output !== "") {
+            output = "あと" + output + "!";
+        }
+        return output;
+    }
     render() {
         return (
             <div className="App">
