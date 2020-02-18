@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Container } from 'react-bootstrap';
 import PriceRow from './containers/PriceRow';
-import logo from './logo.svg';
 
 export default class Simulator extends Component {
     constructor(props) {
@@ -10,9 +9,11 @@ export default class Simulator extends Component {
             info: {
                 money: "",
                 stock: "",
+                otherasset: "",
                 asset: "",
                 food: "",
                 rent: "",
+                otherpayment: "",
                 payment: "",
             },
 
@@ -63,6 +64,7 @@ export default class Simulator extends Component {
             output: this.getOutput(),
             error: "",
         })
+        this.props.history.push('/result')
     }
 
     validate() {
@@ -118,15 +120,6 @@ export default class Simulator extends Component {
     }
 
     render() {
-        const styles = {
-            h2: {
-                color: "#FFFFFF",
-                border: "solid 3px #364e96",
-                padding: "0.2em",
-                borderRadius: "0.5em",
-                textAlign: "center",
-            }
-        };
         const ColorLine = ({ color }) => (
             <hr
                 style={{
@@ -137,15 +130,15 @@ export default class Simulator extends Component {
             />
         );
         return (
-
             <div>
                 <header className="App-header">
                     {this.state.error}
-                    <img src={logo} className="App-logo" alt="logo" />
-                    <h1>無職シミュレーター</h1>
+                    <h1 className="h1-title">無職シミュレーター</h1>
                     <br />
+                </header>
+                <body className="App-body">
                     <Container>
-                        <h2 style={styles.h2}>資産</h2>
+                        <h2 className="h2-title">資産</h2>
                         {this.state.info.money}
                         <PriceRow
                             title={"現金/預金"}
@@ -168,7 +161,7 @@ export default class Simulator extends Component {
                             value={this.state.info.asset}
                         />
                         <br />
-                        <h2 style={styles.h2}>支出(月)</h2>
+                        <h2 className="h2-title">支出(月)</h2>
                         <PriceRow
                             title={"食費"}
                             id={"food"}
@@ -192,12 +185,10 @@ export default class Simulator extends Component {
                     </Container>
                     <br />
                     <Button variant="primary" type="button" onClick={this.show}>計算</Button>
-
                     <br />
                     <label>残りの無職人生</label>
                     <label>{this.state.output}</label>
-                </header>
-
+                </body>
             </div >
         );
     }
