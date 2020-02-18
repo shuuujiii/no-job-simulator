@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Table, Button, FormControl, Container, Row, Col, Jumbotron } from 'react-bootstrap';
+import { Button, Container } from 'react-bootstrap';
+import PriceRow from './containers/PriceRow';
 import logo from './logo.svg';
 
 export default class Simulator extends Component {
@@ -56,7 +57,6 @@ export default class Simulator extends Component {
         })
     }
 
-
     show(e) {
         if (!this.validate()) { return; }
         this.setState({
@@ -91,7 +91,6 @@ export default class Simulator extends Component {
 
     parseIntZero(value) {
         let result = (parseInt(value) || 0);
-        console.log(result);
         return result;
     }
 
@@ -120,9 +119,6 @@ export default class Simulator extends Component {
 
     render() {
         const styles = {
-            row: {
-                marginBottom: 3,
-            },
             h2: {
                 color: "#FFFFFF",
                 border: "solid 3px #364e96",
@@ -140,7 +136,6 @@ export default class Simulator extends Component {
                 }}
             />
         );
-        const handleFocus = (e) => e.target.select();
         return (
 
             <div>
@@ -151,76 +146,49 @@ export default class Simulator extends Component {
                     <br />
                     <Container>
                         <h2 style={styles.h2}>資産</h2>
-                        <Row style={styles.row}>
-                            <Col sm={{ span: 4, offset: 2 }}>現金/預金 </Col>
-                            <Col sm={4}>
-                                <FormControl
-                                    id="money"
-                                    name="money"
-                                    onChange={this.handleChangeInput}
-                                    onBlur={this.handleOnBlurAsset}
-                                    onFocus={handleFocus}
-                                    value={this.state.info.money} />
-                            </Col>
-                        </Row>
-                        <Row style={styles.row}>
-                            <Col sm={{ span: 4, offset: 2 }}>有価証券</Col>
-                            <Col sm={4}>
-                                <FormControl
-                                    id="stock"
-                                    name="stock"
-                                    onChange={this.handleChangeInput}
-                                    onBlur={this.handleOnBlurAsset}
-                                    onFocus={handleFocus}
-                                    value={this.state.info.stock} />
-                            </Col>
-                        </Row>
+                        {this.state.info.money}
+                        <PriceRow
+                            title={"現金/預金"}
+                            id={"money"}
+                            handleChange={this.handleChangeInput}
+                            handleOnBlur={this.handleOnBlurAsset}
+                            value={this.state.info.money} />
+                        <PriceRow
+                            title={"有価証券"}
+                            id={"stock"}
+                            handleChange={this.handleChangeInput}
+                            handleOnBlur={this.handleOnBlurAsset}
+                            value={this.state.info.stock} />
                         <ColorLine color="gray" />
-                        <Row style={styles.row}>
-                            <Col sm={{ span: 4, offset: 2 }}>資産合計</Col>
-                            <Col sm={4}>
-                                <FormControl
-                                    id="asset" name="asset"
-                                    onChange={this.handleChangeInput}
-                                    onFocus={handleFocus}
-                                    value={this.state.info.asset} />
-                            </Col>
-                        </Row>
+                        <PriceRow
+                            title={"資産合計"}
+                            id={"asset"}
+                            handleChange={this.handleChangeInput}
+                            handleOnBlur={() => { return; }}
+                            value={this.state.info.asset}
+                        />
                         <br />
                         <h2 style={styles.h2}>支出(月)</h2>
-                        <Row style={styles.row}>
-                            <Col sm={{ span: 4, offset: 2 }}>食費</Col>
-                            <Col sm={4}>
-                                <FormControl
-                                    id="food" name="food"
-                                    onChange={this.handleChangeInput}
-                                    onBlur={this.handleOnBlurSpend}
-                                    onFocus={handleFocus}
-                                    value={this.state.info.food} />
-                            </Col>
-                        </Row>
-                        <Row style={styles.row}>
-                            <Col sm={{ span: 4, offset: 2 }}>家賃</Col>
-                            <Col sm={4}>
-                                <FormControl
-                                    id="rent" name="rent"
-                                    onChange={this.handleChangeInput}
-                                    onBlur={this.handleOnBlurSpend}
-                                    onFocus={handleFocus}
-                                    value={this.state.info.rent} />
-                            </Col>
-                        </Row>
+                        <PriceRow
+                            title={"食費"}
+                            id={"food"}
+                            handleChange={this.handleChangeInput}
+                            handleOnBlur={this.handleOnBlurSpend}
+                            value={this.state.info.food} />
+                        <PriceRow
+                            title={"家賃"}
+                            id={"rent"}
+                            handleChange={this.handleChangeInput}
+                            handleOnBlur={this.handleOnBlurSpend}
+                            value={this.state.info.rent} />
                         <ColorLine color="gray" />
-                        <Row style={styles.row}>
-                            <Col sm={{ span: 4, offset: 2 }}>支出合計</Col>
-                            <Col sm={4}>
-                                <FormControl
-                                    id="payment" name="payment"
-                                    onChange={this.handleChangeInput}
-                                    onFocus={handleFocus}
-                                    value={this.state.info.payment} />
-                            </Col>
-                        </Row>
+                        <PriceRow
+                            title={"支出合計"}
+                            id={"payment"}
+                            handleChange={this.handleChangeInput}
+                            handleOnBlur={() => { return; }}
+                            value={this.state.info.payment}
+                        />
                     </Container>
                     <br />
                     <Button variant="primary" type="button" onClick={this.show}>計算</Button>
