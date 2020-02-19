@@ -12,15 +12,27 @@ class Assets extends React.Component {
                 money: "",
                 stock: "",
             },
-            asset: this.props.info.asset,
+            display: {
+                money: "",
+                stock: "",
+            },
+            asset: {
+                info: "",
+                display: "",
+            },
         }
     }
 
     handleChangeInputInfo(e) {
         this.setState({
+            ...this.state,
             info: {
                 ...this.state.info,
                 [e.target.name]: inputjs.InputNumOnly(e.target.value),
+            },
+            display: {
+                ...this.state.display,
+                [e.target.name]: inputjs.InputComma(e.target.value),
             }
         });
     }
@@ -31,14 +43,17 @@ class Assets extends React.Component {
     }
 
     handleChangeInputAsset(e) {
-        this.updateAsset(inputjs.InputNumOnly(e.target.value))
+        this.updateAsset(e.target.value);
     }
 
     // !!!updateParentProps!!!;
     updateAsset(asset) {
         this.setState({
             ...this.state,
-            asset: asset,
+            asset: {
+                info: asset,
+                display: inputjs.InputComma(asset.toString()),
+            }
         })
         this.props.updateAsset(asset)
     }
@@ -52,25 +67,24 @@ class Assets extends React.Component {
                     id={"money"}
                     handleChange={this.handleChangeInputInfo.bind(this)}
                     handleOnBlur={this.handleOnBlurInfo.bind(this)}
-                    value={this.state.info.money} />
+                    value={this.state.display.money} />
                 <PriceRow
                     title={"有価証券"}
                     id={"stock"}
                     handleChange={this.handleChangeInputInfo.bind(this)}
                     handleOnBlur={this.handleOnBlurInfo.bind(this)}
-                    value={this.state.info.stock} />
+                    value={this.state.display.stock} />
                 <ColorLine color="gray" />
                 <PriceRow
                     title={"資産合計"}
                     id={"asset"}
                     handleChange={this.handleChangeInputAsset.bind(this)}
                     handleOnBlur={() => { return; }}
-                    value={this.state.asset}
+                    value={this.state.asset.display}
                 />
             </div>
         )
     }
-
 }
 
 export default Assets

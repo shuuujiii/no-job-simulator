@@ -53,7 +53,7 @@ class Simulator extends Component {
                 <div className="App-body">
                     <Container>
                         <Assets
-                            info={this.state.info}
+                            // info={this.state.info}
                             updateAsset={(value) => this.updateAsset(value)} />
                         <br />
                         <Payments

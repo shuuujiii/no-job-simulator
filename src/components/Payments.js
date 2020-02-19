@@ -12,15 +12,27 @@ class Payments extends React.Component {
                 food: "",
                 rent: "",
             },
-            payment: this.props.info.payment,
+            display: {
+                food: "",
+                rent: "",
+            },
+            payment: {
+                info: "",
+                display: "",
+            },
         }
     }
 
     handleChangeInputInfo(e) {
         this.setState({
+            ...this.state,
             info: {
                 ...this.state.info,
                 [e.target.name]: inputjs.InputNumOnly(e.target.value),
+            },
+            display: {
+                ...this.state.display,
+                [e.target.name]: inputjs.InputComma(e.target.value),
             }
         });
     }
@@ -38,7 +50,10 @@ class Payments extends React.Component {
     updatePayment(payment) {
         this.setState({
             ...this.state,
-            payment: payment,
+            payment: {
+                info: payment,
+                display: inputjs.InputComma(payment.toString()),
+            }
         })
         this.props.updatePayment(payment)
     }
@@ -52,20 +67,20 @@ class Payments extends React.Component {
                     id={"food"}
                     handleChange={this.handleChangeInputInfo.bind(this)}
                     handleOnBlur={this.handleOnBlurInfo.bind(this)}
-                    value={this.state.info.food} />
+                    value={this.state.display.food} />
                 <PriceRow
                     title={"家賃"}
                     id={"rent"}
                     handleChange={this.handleChangeInputInfo.bind(this)}
                     handleOnBlur={this.handleOnBlurInfo.bind(this)}
-                    value={this.state.info.rent} />
+                    value={this.state.display.rent} />
                 <ColorLine color="gray" />
                 <PriceRow
                     title={"支出合計"}
                     id={"payment"}
                     handleChange={this.handleChangeInputPayment.bind(this)}
                     handleOnBlur={() => { return; }}
-                    value={this.state.payment}
+                    value={this.state.payment.display}
                 />
             </div>
         )
