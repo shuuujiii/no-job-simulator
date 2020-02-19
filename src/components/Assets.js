@@ -1,0 +1,76 @@
+import React from 'react'
+import PriceRow from './PriceRow';
+import ColorLine from '../styles/colorline';
+import * as inputjs from '../js/input';
+import * as calcjs from '../js/calc';
+
+class Assets extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            info: {
+                money: "",
+                stock: "",
+            },
+            asset: this.props.info.asset,
+        }
+    }
+
+    handleChangeInputInfo(e) {
+        this.setState({
+            info: {
+                ...this.state.info,
+                [e.target.name]: inputjs.InputNumOnly(e.target.value),
+            }
+        });
+    }
+
+    handleOnBlurInfo() {
+        let sum = calcjs.getValueSumOfKeyValueObj({ ...this.state.info });
+        this.updateAsset(sum)
+    }
+
+    handleChangeInputAsset(e) {
+        this.updateAsset(inputjs.InputNumOnly(e.target.value))
+    }
+
+    // !!!updateParentProps!!!;
+    updateAsset(asset) {
+        this.setState({
+            ...this.state,
+            asset: asset,
+        })
+        this.props.updateAsset(asset)
+    }
+
+    render() {
+        return (
+            <div>
+                <h2 className="h2-title">資産</h2>
+                <PriceRow
+                    title={"現金/預金"}
+                    id={"money"}
+                    handleChange={this.handleChangeInputInfo.bind(this)}
+                    handleOnBlur={this.handleOnBlurInfo.bind(this)}
+                    value={this.state.info.money} />
+                <PriceRow
+                    title={"有価証券"}
+                    id={"stock"}
+                    handleChange={this.handleChangeInputInfo.bind(this)}
+                    handleOnBlur={this.handleOnBlurInfo.bind(this)}
+                    value={this.state.info.stock} />
+                <ColorLine color="gray" />
+                <PriceRow
+                    title={"資産合計"}
+                    id={"asset"}
+                    handleChange={this.handleChangeInputAsset.bind(this)}
+                    handleOnBlur={() => { return; }}
+                    value={this.state.asset}
+                />
+            </div>
+        )
+    }
+
+}
+
+export default Assets
