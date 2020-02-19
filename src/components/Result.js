@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import Header from '../components/Header';
+import Header from './Header';
 import * as parsejs from '../js/parse';
 class Result extends React.Component {
     constructor(props) {

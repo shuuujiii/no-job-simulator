@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Button, Container } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import Header from './components/Header';
-import PriceRow from './containers/PriceRow';
+import PriceRow from './components/PriceRow';
 import ColorLine from './styles/colorline';
 import * as inputjs from './js/input';
 import * as calcjs from './js/calc';
