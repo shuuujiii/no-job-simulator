@@ -3,6 +3,9 @@ import { Button, Container } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import Header from './components/Header';
 import PriceRow from './containers/PriceRow';
+import ColorLine from './styles/colorline';
+import * as inputjs from './js/input';
+import * as calcjs from './js/calc';
 
 class Simulator extends Component {
     constructor(props) {
@@ -22,16 +25,8 @@ class Simulator extends Component {
                 },
                 payment: "",
             },
-
             error: "",
         };
-
-        this.handleChangeInputAssets = this.handleChangeInputAssets.bind(this);
-        this.handleChangeInputPayments = this.handleChangeInputPayments.bind(this);
-        this.handleChangeInputInfo = this.handleChangeInputInfo.bind(this);
-        this.handleOnBlurAssets = this.handleOnBlurAssets.bind(this);
-        this.handleOnBlurPayments = this.handleOnBlurPayments.bind(this);
-        this.show = this.show.bind(this);
     }
 
     handleChangeInputAssets(e) {
@@ -40,7 +35,7 @@ class Simulator extends Component {
                 ...this.state.info,
                 assets: {
                     ...this.state.info.assets,
-                    [e.target.name]: this.InputNumOnly(e.target.value),
+                    [e.target.name]: inputjs.InputNumOnly(e.target.value),
                 }
             }
         });
@@ -52,7 +47,7 @@ class Simulator extends Component {
                 ...this.state.info,
                 payments: {
                     ...this.state.info.payments,
-                    [e.target.name]: this.InputNumOnly(e.target.value),
+                    [e.target.name]: inputjs.InputNumOnly(e.target.value),
                 }
             }
         });
@@ -62,16 +57,13 @@ class Simulator extends Component {
         this.setState({
             info: {
                 ...this.state.info,
-                [e.target.name]: this.InputNumOnly(e.target.value),
+                [e.target.name]: inputjs.InputNumOnly(e.target.value),
             }
         });
     }
 
     handleOnBlurAssets() {
-        let sum = 0;
-        Object.keys(this.state.info.assets).forEach((key) => {
-            sum += this.parseIntZero(this.state.info.assets[key])
-        });
+        let sum = calcjs.getValueSumOfKeyValueObj({ ...this.state.info.assets });
         this.setState(state => ({
             info: {
                 ...this.state.info,
@@ -81,10 +73,7 @@ class Simulator extends Component {
     }
 
     handleOnBlurPayments() {
-        let sum = 0;
-        Object.keys(this.state.info.payments).forEach((key) => {
-            sum += this.parseIntZero(this.state.info.payments[key])
-        });
+        let sum = calcjs.getValueSumOfKeyValueObj({ ...this.state.info.payments });
         this.setState({
             info: {
                 ...this.state.info,
@@ -94,7 +83,6 @@ class Simulator extends Component {
     }
 
     show(e) {
-        if (!this.validate()) { return; }
         this.props.history.push({
             pathname: '/result',
             state: {
@@ -104,45 +92,7 @@ class Simulator extends Component {
         })
     }
 
-    validate() {
-        if (this.parseIntZero(this.state.info.asset) === 0) {
-            this.setState({
-                result: "終了!",
-                error: "お金を貯めてから無職になってください！"
-            })
-            return false;
-        }
-
-        if (this.parseIntZero(this.state.info.payment) === 0) {
-            this.setState({
-                result: "Infinity",
-                error: "支出がなければ一生無職でも大丈夫です。おめでとう！"
-            });
-            return false;
-        }
-
-        return true;
-    }
-
-    InputNumOnly(value) {
-        return value.replace(/[^0-9]/g, '');
-    }
-
-    parseIntZero(value) {
-        let result = (parseInt(value) || 0);
-        return result;
-    }
-
     render() {
-        const ColorLine = ({ color }) => (
-            <hr
-                style={{
-                    color: color,
-                    backgroundColor: color,
-                    height: 5,
-                }}
-            />
-        );
         return (
             <div>
                 <Header title={"無職シミュレーター"} />
@@ -152,20 +102,20 @@ class Simulator extends Component {
                         <PriceRow
                             title={"現金/預金"}
                             id={"money"}
-                            handleChange={this.handleChangeInputAssets}
-                            handleOnBlur={this.handleOnBlurAssets}
+                            handleChange={this.handleChangeInputAssets.bind(this)}
+                            handleOnBlur={this.handleOnBlurAssets.bind(this)}
                             value={this.state.info.assets.money} />
                         <PriceRow
                             title={"有価証券"}
                             id={"stock"}
-                            handleChange={this.handleChangeInputAssets}
-                            handleOnBlur={this.handleOnBlurAssets}
+                            handleChange={this.handleChangeInputAssets.bind(this)}
+                            handleOnBlur={this.handleOnBlurAssets.bind(this)}
                             value={this.state.info.assets.stock} />
                         <ColorLine color="gray" />
                         <PriceRow
                             title={"資産合計"}
                             id={"asset"}
-                            handleChange={this.handleChangeInputInfo}
+                            handleChange={this.handleChangeInputInfo.bind(this)}
                             handleOnBlur={() => { return; }}
                             value={this.state.info.asset}
                         />
@@ -174,26 +124,26 @@ class Simulator extends Component {
                         <PriceRow
                             title={"食費"}
                             id={"food"}
-                            handleChange={this.handleChangeInputPayments}
-                            handleOnBlur={this.handleOnBlurPayments}
+                            handleChange={this.handleChangeInputPayments.bind(this)}
+                            handleOnBlur={this.handleOnBlurPayments.bind(this)}
                             value={this.state.info.payments.food} />
                         <PriceRow
                             title={"家賃"}
                             id={"rent"}
-                            handleChange={this.handleChangeInputPayments}
-                            handleOnBlur={this.handleOnBlurPayments}
+                            handleChange={this.handleChangeInputPayments.bind(this)}
+                            handleOnBlur={this.handleOnBlurPayments.bind(this)}
                             value={this.state.info.payments.rent} />
                         <ColorLine color="gray" />
                         <PriceRow
                             title={"支出合計"}
                             id={"payment"}
-                            handleChange={this.handleChangeInputInfo}
+                            handleChange={this.handleChangeInputInfo.bind(this)}
                             handleOnBlur={() => { return; }}
                             value={this.state.info.payment}
                         />
                     </Container>
                     <br />
-                    <Button variant="primary" type="button" onClick={this.show}>計算</Button>
+                    <Button variant="primary" type="button" onClick={this.show.bind(this)}>計算</Button>
                     <br />
                 </div>
             </div >

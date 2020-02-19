@@ -1,5 +1,7 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
+import Header from '../components/Header';
+import * as parsejs from '../js/parse';
 class Result extends React.Component {
     constructor(props) {
         super(props)
@@ -17,13 +19,20 @@ class Result extends React.Component {
     componentDidMount() {
         this.setState({
             result: this.getResult(),
-            error: "",
         })
     }
 
     getResult() {
-        let asset = parseInt(this.state.asset) || 0;
-        let payment = parseInt(this.state.payment) || 0;
+        let asset = parsejs.parseIntZero(this.state.asset);
+        let payment = parsejs.parseIntZero(this.state.payment);
+        if (asset === 0) {
+            return "お金を貯めてから無職になってください！";
+        }
+
+        if (payment === 0) {
+            return "支出がなければ一生無職でも大丈夫です。おめでとう！";
+        }
+
         let allMonth = asset / payment;
         let year = Math.floor(Math.floor(allMonth) / 12);
         let month = Math.floor(allMonth) - year * 12;
@@ -47,13 +56,12 @@ class Result extends React.Component {
     render() {
         return (
             <div>
-                <header className="App-header">
-                    結果
-                <br />
-                    {this.state.result}
+                <Header title={"結果"} />
+                <div className="App-body">
+                    <div>{this.state.result}</div>
                     <br />
                     <Button onClick={this.handleClick.bind(this)}>戻る</Button>
-                </header>
+                </div>
             </div>
         )
     }
