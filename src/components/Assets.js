@@ -11,10 +11,12 @@ class Assets extends React.Component {
             info: {
                 money: "",
                 stock: "",
+                otherAsset: "",
             },
             display: {
                 money: "",
                 stock: "",
+                otherAsset: "",
             },
             asset: {
                 info: "",
@@ -74,6 +76,12 @@ class Assets extends React.Component {
                     handleChange={this.handleChangeInputInfo.bind(this)}
                     handleOnBlur={this.handleOnBlurInfo.bind(this)}
                     value={this.state.display.stock} />
+                <PriceRow
+                    title={"その他"}
+                    id={"otherAsset"}
+                    handleChange={this.handleChangeInputInfo.bind(this)}
+                    handleOnBlur={this.handleOnBlurInfo.bind(this)}
+                    value={this.state.display.otherAsset} />
                 <ColorLine color="gray" />
                 <PriceRow
                     title={"資産合計"}

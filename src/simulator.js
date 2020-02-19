@@ -3,7 +3,7 @@ import { Button, Container } from 'react-bootstrap';
 import { withRouter } from 'react-router';
 import Header from './components/Header';
 import Assets from './components/Assets';
-import Payments from './components/Payments';
+import PaymentsMonth from './components/PaymentsMonth';
 
 class Simulator extends Component {
     constructor(props) {
@@ -56,7 +56,7 @@ class Simulator extends Component {
                             // info={this.state.info}
                             updateAsset={(value) => this.updateAsset(value)} />
                         <br />
-                        <Payments
+                        <PaymentsMonth
                             info={this.state.info}
                             updatePayment={(value) => this.updatePayment(value)} />
                     </Container>
