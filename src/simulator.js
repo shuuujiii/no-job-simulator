@@ -4,6 +4,7 @@ import { withRouter } from 'react-router';
 import Header from './components/Header';
 import Assets from './components/Assets';
 import PaymentsMonth from './components/PaymentsMonth';
+import PaymentsYear from './components/PaymentsYear';
 
 class Simulator extends Component {
     constructor(props) {
@@ -52,6 +53,7 @@ class Simulator extends Component {
                 <Header title={"無職シミュレーター"} />
                 <div className="App-body">
                     <Container>
+                        <PaymentsYear />
                         <Assets
                             // info={this.state.info}
                             updateAsset={(value) => this.updateAsset(value)} />
