@@ -58,9 +58,12 @@ class PaymentsYear extends React.Component {
                 if (this.state.selected == index) {
                     return {
                         info: {
+                            ...value.info,
                             [e.target.name]: e.target.value,
                         },
-                        display: {
+                        display:
+                        {
+                            ...value.display,
                             [e.target.name]: inputjs.InputComma(e.target.value),
                         }
                     }
