@@ -53,7 +53,6 @@ class Simulator extends Component {
                 <Header title={"無職シミュレーター"} />
                 <div className="App-body">
                     <Container>
-                        <PaymentsYear />
                         <Assets
                             // info={this.state.info}
                             updateAsset={(value) => this.updateAsset(value)} />
@@ -61,6 +60,8 @@ class Simulator extends Component {
                         <PaymentsMonth
                             info={this.state.info}
                             updatePayment={(value) => this.updatePayment(value)} />
+                        <br />
+                        <PaymentsYear />
                     </Container>
                     <br />
                     <Button variant="primary" type="button" onClick={this.show.bind(this)}>計算</Button>

@@ -127,53 +127,49 @@ class PaymentsYear extends React.Component {
 
         return (
             <div>
-                <div className="App-body">
-                    <Container>
-                        <Form>
-                            <Form.Group controlId="ControlSelectMonth">
-                                <Row>
-                                    <Col style={{ textAlign: "right" }}>
-                                        <Form.Label>月</Form.Label>
-                                    </Col>
-                                    <Col>
-                                        <Form.Control as="select"
-                                            style={{ width: 100 }}
-                                            onChange={this.handleChangeSelect.bind(this)}
-                                            value={this.state.selected}>
-                                            {options}
-                                        </Form.Control>
-                                    </Col>
-                                </Row>
-                            </Form.Group>
-                        </Form>
-                        <PriceRow
-                            title={"税金"}
-                            id={"tax"}
-                            handleChange={this.handleChangeInputInfo.bind(this)}
-                            handleOnBlur={this.handleOnBlurInfo.bind(this)}
-                            value={this.state.infoList[this.state.selected].display.tax} />
-                        <PriceRow
-                            title={"保険料"}
-                            id={"insurance"}
-                            handleChange={this.handleChangeInputInfo.bind(this)}
-                            handleOnBlur={this.handleOnBlurInfo.bind(this)}
-                            value={this.state.infoList[this.state.selected].display.insurance} />
-                        <PriceRow
-                            title={"その他"}
-                            id={"other"}
-                            handleChange={this.handleChangeInputInfo.bind(this)}
-                            handleOnBlur={this.handleOnBlurInfo.bind(this)}
-                            value={this.state.infoList[this.state.selected].display.other} />
-                        <ColorLine color={"gray"} />
-                        <PriceRow
-                            title={"合計"}
-                            id={"total"}
-                            handleChange={this.handleChangeInputPayment.bind(this)}
-                            handleOnBlur={() => { return; }}
-                            value={this.state.infoList[this.state.selected].total.display} />
-
-                    </Container>
-                </div>
+                <h2 className="h2-title">支出(特定月)</h2>
+                <Form>
+                    <Form.Group controlId="ControlSelectMonth">
+                        <Row>
+                            <Col style={{ textAlign: "right" }}>
+                                <Form.Label>月</Form.Label>
+                            </Col>
+                            <Col>
+                                <Form.Control as="select"
+                                    style={{ width: 100 }}
+                                    onChange={this.handleChangeSelect.bind(this)}
+                                    value={this.state.selected}>
+                                    {options}
+                                </Form.Control>
+                            </Col>
+                        </Row>
+                    </Form.Group>
+                </Form>
+                <PriceRow
+                    title={"税金"}
+                    id={"tax"}
+                    handleChange={this.handleChangeInputInfo.bind(this)}
+                    handleOnBlur={this.handleOnBlurInfo.bind(this)}
+                    value={this.state.infoList[this.state.selected].display.tax} />
+                <PriceRow
+                    title={"保険料"}
+                    id={"insurance"}
+                    handleChange={this.handleChangeInputInfo.bind(this)}
+                    handleOnBlur={this.handleOnBlurInfo.bind(this)}
+                    value={this.state.infoList[this.state.selected].display.insurance} />
+                <PriceRow
+                    title={"その他"}
+                    id={"other"}
+                    handleChange={this.handleChangeInputInfo.bind(this)}
+                    handleOnBlur={this.handleOnBlurInfo.bind(this)}
+                    value={this.state.infoList[this.state.selected].display.other} />
+                <ColorLine color={"gray"} />
+                <PriceRow
+                    title={"合計"}
+                    id={"total"}
+                    handleChange={this.handleChangeInputPayment.bind(this)}
+                    handleOnBlur={() => { return; }}
+                    value={this.state.infoList[this.state.selected].total.display} />
             </div>
         )
     }
