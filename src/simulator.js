@@ -4,6 +4,7 @@ import { withRouter } from 'react-router';
 import Header from './components/Header';
 import Assets from './components/Assets';
 import RegularIncome from './components/RegularIncome';
+import ExtraodinaryIncome from './components/ExtraodinaryIncome';
 import PaymentsMonth from './components/PaymentsMonth';
 import PaymentsYear from './components/PaymentsYear';
 
@@ -59,6 +60,9 @@ class Simulator extends Component {
                             updateAsset={(value) => this.updateAsset(value)} />
                         <br />
                         <RegularIncome />
+                        <br />
+                        <ExtraodinaryIncome />
+                        <br />
                         <PaymentsMonth
                             info={this.state.info}
                             updatePayment={(value) => this.updatePayment(value)} />

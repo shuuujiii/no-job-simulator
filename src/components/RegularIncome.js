@@ -31,8 +31,6 @@ class RegularIncome extends React.Component {
     render() {
         return (
             <div>
-                {this.state.info.income}
-                {this.state.display.income}
                 <h2 className="h2-title">定期収入</h2>
                 <PriceRow
                     title={"定期収入"}
