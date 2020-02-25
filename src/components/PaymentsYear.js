@@ -129,9 +129,6 @@ class PaymentsYear extends React.Component {
             <div>
                 <div className="App-body">
                     <Container>
-                        {this.state.infoList[0].info.tax}
-                        <br />
-                        {this.state.infoList[0].display.tax}
                         <Form>
                             <Form.Group controlId="ControlSelectMonth">
                                 <Row>
