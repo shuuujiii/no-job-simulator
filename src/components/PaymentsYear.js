@@ -1,7 +1,9 @@
 import React from 'react';
 import { Form, Row, Col, Container } from 'react-bootstrap';
 import PriceRow from './PriceRow';
+import ColorLine from '../styles/colorline'
 import * as inputjs from '../js/input';
+import * as calcjs from '../js/calc';
 class PaymentsYear extends React.Component {
     constructor(props) {
         super(props)
@@ -9,15 +11,19 @@ class PaymentsYear extends React.Component {
             selected: 0,
             infoList: [{
                 info: {
-                    resident_tax: "",
-                    car_tax: "",
-                    insurance_fee: "",
+                    tax: "",
+                    insurance: "",
+                    other: "",
                 },
                 display: {
-                    resident_tax: "",
-                    car_tax: "",
-                    insurance_fee: "",
+                    tax: "",
+                    insurance: "",
+                    other: "",
                 },
+                total: {
+                    info: "",
+                    display: "",
+                }
             }],
         }
     }
@@ -28,15 +34,19 @@ class PaymentsYear extends React.Component {
         for (let i = 0; i < 12; i++) {
             arr.push({
                 info: {
-                    resident_tax: "",
-                    car_tax: "",
-                    insurance_fee: "",
+                    tax: "",
+                    insurance: "",
+                    other: "",
                 },
                 display: {
-                    resident_tax: "",
-                    car_tax: "",
-                    insurance_fee: "",
+                    tax: "",
+                    insurance: "",
+                    other: "",
                 },
+                total: {
+                    info: "",
+                    display: "",
+                }
             })
         }
         this.setState({
@@ -57,21 +67,50 @@ class PaymentsYear extends React.Component {
             infoList: this.state.infoList.map((value, index) => {
                 if (this.state.selected == index) {
                     return {
+                        ...value,
                         info: {
                             ...value.info,
-                            [e.target.name]: e.target.value,
+                            [e.target.name]: inputjs.InputNumOnly(e.target.value),
                         },
                         display:
                         {
                             ...value.display,
                             [e.target.name]: inputjs.InputComma(e.target.value),
-                        }
+                        },
                     }
                 } else {
                     return value;
                 }
             })
         });
+    }
+    handleOnBlurInfo() {
+        let sum = calcjs.getValueSumOfKeyValueObj({ ...this.state.infoList[this.state.selected].info });
+        this.updatePayment(sum)
+    }
+
+    handleChangeInputPayment(e) {
+        this.updatePayment(inputjs.InputNumOnly(e.target.value))
+    }
+
+    // !!!updateParentProps!!!;
+    updatePayment(payment) {
+        this.setState({
+            ...this.state,
+            infoList: this.state.infoList.map((value, index) => {
+                if (this.state.selected == index) {
+                    return {
+                        ...value,
+                        total: {
+                            info: payment,
+                            display: inputjs.InputComma(payment.toString()),
+                        },
+                    }
+                } else {
+                    return value;
+                }
+            })
+        })
     }
 
     render() {
@@ -90,10 +129,13 @@ class PaymentsYear extends React.Component {
             <div>
                 <div className="App-body">
                     <Container>
+                        {this.state.infoList[0].info.tax}
+                        <br />
+                        {this.state.infoList[0].display.tax}
                         <Form>
                             <Form.Group controlId="ControlSelectMonth">
                                 <Row>
-                                    <Col>
+                                    <Col style={{ textAlign: "right" }}>
                                         <Form.Label>月</Form.Label>
                                     </Col>
                                     <Col>
@@ -108,23 +150,31 @@ class PaymentsYear extends React.Component {
                             </Form.Group>
                         </Form>
                         <PriceRow
-                            title={"住民税"}
-                            id={"resident_tax"}
+                            title={"税金"}
+                            id={"tax"}
                             handleChange={this.handleChangeInputInfo.bind(this)}
-                            handleOnBlur={() => { return; }}
-                            value={this.state.infoList[this.state.selected].display.resident_tax} />
+                            handleOnBlur={this.handleOnBlurInfo.bind(this)}
+                            value={this.state.infoList[this.state.selected].display.tax} />
                         <PriceRow
-                            title={"自動車税"}
-                            id={"car_tax"}
+                            title={"保険料"}
+                            id={"insurance"}
                             handleChange={this.handleChangeInputInfo.bind(this)}
-                            handleOnBlur={() => { return; }}
-                            value={this.state.infoList[this.state.selected].display.car_tax} />
+                            handleOnBlur={this.handleOnBlurInfo.bind(this)}
+                            value={this.state.infoList[this.state.selected].display.insurance} />
                         <PriceRow
-                            title={"保険料(ex.自動車保険)"}
-                            id={"insurance_fee"}
+                            title={"その他"}
+                            id={"other"}
                             handleChange={this.handleChangeInputInfo.bind(this)}
+                            handleOnBlur={this.handleOnBlurInfo.bind(this)}
+                            value={this.state.infoList[this.state.selected].display.other} />
+                        <ColorLine color={"gray"} />
+                        <PriceRow
+                            title={"合計"}
+                            id={"total"}
+                            handleChange={this.handleChangeInputPayment.bind(this)}
                             handleOnBlur={() => { return; }}
-                            value={this.state.infoList[this.state.selected].display.insurance_fee} />
+                            value={this.state.infoList[this.state.selected].total.display} />
+
                     </Container>
                 </div>
             </div>
