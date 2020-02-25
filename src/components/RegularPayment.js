@@ -4,7 +4,7 @@ import ColorLine from '../styles/colorline';
 import * as inputjs from '../js/input';
 import * as calcjs from '../js/calc';
 
-class PaymentsMonth extends React.Component {
+class RegularPayment extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -153,4 +153,4 @@ class PaymentsMonth extends React.Component {
     }
 }
 
-export default PaymentsMonth
+export default RegularPayment

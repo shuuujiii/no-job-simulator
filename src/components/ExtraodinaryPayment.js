@@ -4,7 +4,7 @@ import PriceRow from './PriceRow';
 import ColorLine from '../styles/colorline'
 import * as inputjs from '../js/input';
 import * as calcjs from '../js/calc';
-class PaymentsYear extends React.Component {
+class ExtraodinaryOutcome extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -127,7 +127,7 @@ class PaymentsYear extends React.Component {
 
         return (
             <div>
-                <h2 className="h2-title">支出(特定月)</h2>
+                <h2 className="h2-title">特別支出</h2>
                 <Form>
                     <Form.Group controlId="ControlSelectMonth">
                         <Row>
@@ -175,4 +175,4 @@ class PaymentsYear extends React.Component {
     }
 }
 
-export default PaymentsYear
+export default ExtraodinaryOutcome

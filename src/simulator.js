@@ -5,8 +5,8 @@ import Header from './components/Header';
 import Assets from './components/Assets';
 import RegularIncome from './components/RegularIncome';
 import ExtraodinaryIncome from './components/ExtraodinaryIncome';
-import PaymentsMonth from './components/PaymentsMonth';
-import PaymentsYear from './components/PaymentsYear';
+import RegularPayment from './components/RegularPayment';
+import ExtraodinaryPayment from './components/ExtraodinaryPayment';
 
 class Simulator extends Component {
     constructor(props) {
@@ -63,11 +63,11 @@ class Simulator extends Component {
                         <br />
                         <ExtraodinaryIncome />
                         <br />
-                        <PaymentsMonth
+                        <RegularPayment
                             info={this.state.info}
                             updatePayment={(value) => this.updatePayment(value)} />
                         <br />
-                        <PaymentsYear />
+                        <ExtraodinaryPayment />
                     </Container>
                     <br />
                     <Button variant="primary" type="button" onClick={this.show.bind(this)}>計算</Button>
