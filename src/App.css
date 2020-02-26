@@ -27,6 +27,7 @@
   font-size: calc(10px + 2vmin);
   color: white;
   padding-top: 20px;
+  border: solid 1px red;
 }
 
 .h2-title{

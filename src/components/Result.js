@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import Header from './Header';
+import LineExample from './Line';
 import * as parsejs from '../js/parse';
 class Result extends React.Component {
     constructor(props) {
@@ -96,11 +97,14 @@ class Result extends React.Component {
         return (
             <div>
                 <Header title={"結果"} />
+                <LineExample />
                 <div className="App-body">
                     <div>{this.state.result}</div>
                     <br />
                     <Button onClick={this.handleClick.bind(this)}>戻る</Button>
+                    <LineExample />
                 </div>
+                <LineExample />
             </div>
         )
     }
