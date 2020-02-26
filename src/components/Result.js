@@ -8,6 +8,9 @@ class Result extends React.Component {
         this.state = {
             asset: this.props.location.state.asset,
             payment: this.props.location.state.payment,
+            income: this.props.location.state.income,
+            exIncome: this.props.location.state.exIncome,
+            exPayment: this.props.location.state.exPayment,
             result: "",
         }
     }
@@ -25,6 +28,7 @@ class Result extends React.Component {
     getResult() {
         let asset = parsejs.parseIntZero(this.state.asset);
         let payment = parsejs.parseIntZero(this.state.payment);
+        let income = parsejs.parseIntZero(this.state.income)
         if (asset === 0) {
             return "お金を貯めてから無職になってください！";
         }
@@ -33,11 +37,46 @@ class Result extends React.Component {
             return "支出がなければ一生無職でも大丈夫です。おめでとう！";
         }
 
-        let allMonth = asset / payment;
+        // per month
+        let monthIndex = new Date().getMonth()
+        let nowMonth = monthIndex + 1
+
+        //convert arrays
+        var arrExIncome = [...this.state.exIncome.slice(monthIndex, this.state.exIncome.length), ...this.state.exIncome.slice(0, monthIndex)]
+        var arrExPayment = [...this.state.exPayment.slice(monthIndex, this.state.exPayment.length), ...this.state.exIncome.slice(0, monthIndex)]
+        //asset - payment
+        let restMoney = asset
+        let index = 0
+        let allMonth = 0
+        console.clear();
+        while (restMoney > 0) {
+            console.log('restMoney', restMoney)
+            restMoney -= payment
+            console.log('payment', payment)
+            console.log('-payment', restMoney)
+            restMoney -= arrExPayment[index]
+            console.log('expayment', arrExPayment[index])
+            console.log('-expayment', restMoney)
+            restMoney += income
+            console.log('income', income)
+            console.log('+income', restMoney)
+            restMoney += arrExIncome[index]
+            console.log('exIncome', arrExIncome[index])
+            console.log('+exIncome', restMoney)
+            index >= 11 ? index = 0 : index++
+            if (restMoney > 0) { allMonth++ }
+            console.log(allMonth)
+        }
         let year = Math.floor(Math.floor(allMonth) / 12);
         let month = Math.floor(allMonth) - year * 12;
         let day = Math.floor((allMonth - (month + year * 12)) * 30);
-        let result = "";
+        let result = this.getConvertLast(year, month, day);
+
+        return result;
+    }
+
+    getConvertLast(year, month, day) {
+        let result = ""
         if (year !== 0) {
             result += year + "年";
         }

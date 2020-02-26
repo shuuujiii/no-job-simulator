@@ -2,6 +2,7 @@ import React from 'react';
 import { Form, Row, Col } from 'react-bootstrap'
 import PriceRow from '../components/PriceRow';
 import * as inputjs from '../js/input';
+import * as parsejs from '../js/parse';
 class ExtraodinaryIncome extends React.Component {
     constructor(props) {
         super(props);
@@ -73,7 +74,7 @@ class ExtraodinaryIncome extends React.Component {
     handleOnBlur() {
         let arrExIncome = []
         this.state.infoList.forEach((value) => {
-            arrExIncome.push(value.info.exincome);
+            arrExIncome.push(parsejs.parseIntZero(value.info.exincome));
         })
         this.props.updateParentInfo('exIncome', arrExIncome)
     }

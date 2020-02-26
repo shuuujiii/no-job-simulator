@@ -38,7 +38,10 @@ class Simulator extends Component {
             pathname: '/result',
             state: {
                 asset: this.state.info.asset,
-                payment: this.state.info.payment
+                payment: this.state.info.payment,
+                income: this.state.info.income,
+                exIncome: this.state.info.exIncome,
+                exPayment: this.state.info.exPayment,
             }
         })
     }
