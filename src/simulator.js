@@ -15,28 +15,22 @@ class Simulator extends Component {
             info: {
                 asset: "",
                 payment: "",
+                income: "",
+                exIncome: [],
+                exPayment: [],
             },
             error: "",
         };
     }
 
-    updateAsset(asset) {
-        console.log("asset", asset);
+    updateParentInfo(key, value) {
         this.setState({
             info: {
                 ...this.state.info,
-                asset: asset,
+                [key]: value,
             }
         })
-    }
-
-    updatePayment(payment) {
-        this.setState({
-            info: {
-                ...this.state.info,
-                payment: payment,
-            }
-        })
+        console.log(key, value)
     }
 
     show(e) {
@@ -49,6 +43,7 @@ class Simulator extends Component {
         })
     }
 
+
     render() {
         return (
             <div>
@@ -56,18 +51,20 @@ class Simulator extends Component {
                 <div className="App-body">
                     <Container>
                         <Assets
-                            // info={this.state.info}
-                            updateAsset={(value) => this.updateAsset(value)} />
+                            updateParentInfo={(key, value) => this.updateParentInfo(key, value)} />
                         <br />
-                        <RegularIncome />
+                        <RegularIncome
+                            updateParentInfo={(key, value) => this.updateParentInfo(key, value)} />
                         <br />
-                        <ExtraodinaryIncome />
+                        <ExtraodinaryIncome
+                            updateParentInfo={(key, value) => this.updateParentInfo(key, value)} />
                         <br />
                         <RegularPayment
                             info={this.state.info}
-                            updatePayment={(value) => this.updatePayment(value)} />
+                            updateParentInfo={(key, value) => this.updateParentInfo(key, value)} />
                         <br />
-                        <ExtraodinaryPayment />
+                        <ExtraodinaryPayment
+                            updateParentInfo={(key, value) => this.updateParentInfo(key, value)} />
                     </Container>
                     <br />
                     <Button variant="primary" type="button" onClick={this.show.bind(this)}>計算</Button>

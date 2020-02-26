@@ -57,7 +57,7 @@ class Assets extends React.Component {
                 display: inputjs.InputComma(asset.toString()),
             }
         })
-        this.props.updateAsset(asset)
+        this.props.updateParentInfo("asset", asset)
     }
 
     render() {

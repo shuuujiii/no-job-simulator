@@ -25,6 +25,7 @@ class RegularIncome extends React.Component {
                 [e.target.name]: inputjs.InputComma(e.target.value),
             }
         });
+        this.props.updateParentInfo("income", inputjs.InputNumOnly(e.target.value))
     }
 
 

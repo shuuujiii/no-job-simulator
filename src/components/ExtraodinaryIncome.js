@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Row, Col, Container } from 'react-bootstrap'
+import { Form, Row, Col } from 'react-bootstrap'
 import PriceRow from '../components/PriceRow';
 import * as inputjs from '../js/input';
 class ExtraodinaryIncome extends React.Component {
@@ -70,6 +70,13 @@ class ExtraodinaryIncome extends React.Component {
         });
     }
 
+    handleOnBlur() {
+        let arrExIncome = []
+        this.state.infoList.forEach((value) => {
+            arrExIncome.push(value.info.exincome);
+        })
+        this.props.updateParentInfo('exIncome', arrExIncome)
+    }
 
     render() {
         var month = Array.from(Array(12).keys(), x => x + 1);
@@ -86,7 +93,7 @@ class ExtraodinaryIncome extends React.Component {
             <div>
                 <h2 className="h2-title">臨時収入</h2>
                 <Form>
-                    <Form.Group controlId="ControlSelectMonth">
+                    <Form.Group controlId="exIncomeMonth">
                         <Row>
                             <Col style={{ textAlign: "right" }}>
                                 <Form.Label>月</Form.Label>
@@ -106,7 +113,7 @@ class ExtraodinaryIncome extends React.Component {
                     title={"臨時収入"}
                     id={"exincome"}
                     handleChange={this.handleChangeInputInfo.bind(this)}
-                    handleOnBlur={() => { return; }}
+                    handleOnBlur={this.handleOnBlur.bind(this)}
                     value={this.state.infoList[this.state.selected].display.exincome} />
             </div>
         )

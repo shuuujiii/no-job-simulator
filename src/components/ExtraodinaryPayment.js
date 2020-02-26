@@ -111,6 +111,12 @@ class ExtraodinaryOutcome extends React.Component {
                 }
             })
         })
+        let arr = []
+        this.state.infoList.forEach((value) => {
+            arr.push(value.total.info)
+        })
+        arr[this.state.selected] = payment
+        this.props.updateParentInfo("exPayment", arr)
     }
 
     render() {
@@ -129,7 +135,7 @@ class ExtraodinaryOutcome extends React.Component {
             <div>
                 <h2 className="h2-title">特別支出</h2>
                 <Form>
-                    <Form.Group controlId="ControlSelectMonth">
+                    <Form.Group controlId="exPaymentMonth">
                         <Row>
                             <Col style={{ textAlign: "right" }}>
                                 <Form.Label>月</Form.Label>

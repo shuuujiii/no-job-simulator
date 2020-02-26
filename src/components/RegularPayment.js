@@ -72,7 +72,7 @@ class RegularPayment extends React.Component {
                 display: inputjs.InputComma(payment.toString()),
             }
         })
-        this.props.updatePayment(payment)
+        this.props.updateParentInfo("payment", payment)
     }
 
     render() {
