@@ -1,8 +1,9 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import Header from './Header';
-import LineExample from './Line';
+import LineGraph from './Line';
 import * as parsejs from '../js/parse';
+import * as commonjs from '../js/common';
 class Result extends React.Component {
     constructor(props) {
         super(props)
@@ -12,6 +13,8 @@ class Result extends React.Component {
             income: this.props.location.state.income,
             exIncome: this.props.location.state.exIncome,
             exPayment: this.props.location.state.exPayment,
+            labels: [],
+            assets: [],
             result: "",
         }
     }
@@ -21,59 +24,67 @@ class Result extends React.Component {
     }
 
     componentDidMount() {
+        let monthIndex = new Date().getMonth()
+        let assets = this.getAssets(monthIndex)
+        let labels = this.getLabels(monthIndex, assets.length)
+        // delete firstdata and lastdata(minusdata)
+        let result = this.getResult(assets.length - 2)
         this.setState({
-            result: this.getResult(),
+            ...this.state,
+            result: result,
+            labels: labels,
+            assets: assets,
         })
     }
 
-    getResult() {
-        let asset = parsejs.parseIntZero(this.state.asset);
-        let payment = parsejs.parseIntZero(this.state.payment);
-        let income = parsejs.parseIntZero(this.state.income)
-        if (asset === 0) {
+    getResult(allMonth) {
+        if (allMonth <= 0) {
             return "お金を貯めてから無職になってください！";
         }
-
-        if (payment === 0) {
-            return "支出がなければ一生無職でも大丈夫です。おめでとう！";
-        }
-
-        // per month
-        let monthIndex = new Date().getMonth()
-        let nowMonth = monthIndex + 1
-
-        //convert arrays
-        var arrExIncome = [...this.state.exIncome.slice(monthIndex, this.state.exIncome.length), ...this.state.exIncome.slice(0, monthIndex)]
-        var arrExPayment = [...this.state.exPayment.slice(monthIndex, this.state.exPayment.length), ...this.state.exIncome.slice(0, monthIndex)]
-        //asset - payment
-        let restMoney = asset
-        let index = 0
-        let allMonth = 0
-        console.clear();
-        while (restMoney > 0) {
-            console.log('restMoney', restMoney)
-            restMoney -= payment
-            console.log('payment', payment)
-            console.log('-payment', restMoney)
-            restMoney -= arrExPayment[index]
-            console.log('expayment', arrExPayment[index])
-            console.log('-expayment', restMoney)
-            restMoney += income
-            console.log('income', income)
-            console.log('+income', restMoney)
-            restMoney += arrExIncome[index]
-            console.log('exIncome', arrExIncome[index])
-            console.log('+exIncome', restMoney)
-            index >= 11 ? index = 0 : index++
-            if (restMoney > 0) { allMonth++ }
-            console.log(allMonth)
+        if (allMonth >= 100) {
+            return "100年以上無職でも大丈夫です。おめでとう！";
         }
         let year = Math.floor(Math.floor(allMonth) / 12);
         let month = Math.floor(allMonth) - year * 12;
         let day = Math.floor((allMonth - (month + year * 12)) * 30);
         let result = this.getConvertLast(year, month, day);
-
         return result;
+    }
+
+    getAssets(monthIndex) {
+        let asset = parsejs.parseIntZero(this.state.asset);
+        let payment = parsejs.parseIntZero(this.state.payment);
+        let income = parsejs.parseIntZero(this.state.income);
+        let arrExIncome = [...this.state.exIncome]
+        let arrExPayment = [...this.state.exPayment]
+        let restMoney = asset
+        let assets = [restMoney]
+        while (restMoney >= 0) {
+            restMoney -= payment
+            restMoney -= commonjs.isEmpty(arrExPayment[monthIndex]) ? 0 : arrExPayment[monthIndex]
+            restMoney += income
+            restMoney += commonjs.isEmpty(arrExIncome[monthIndex]) ? 0 : arrExIncome[monthIndex]
+            monthIndex >= 11 ? monthIndex = 0 : monthIndex++
+            assets.push(restMoney)
+            //100年を最大値として終了する
+            if (assets.length >= 1200) { break; }
+        }
+        return assets;
+    }
+
+    getLabels(monthIndex, assetsLength) {
+        const arrMonth = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
+        let arrfirstYear = [...arrMonth.slice(monthIndex, arrMonth.length), ...arrMonth.slice(0, monthIndex)]
+        let arrReturn = []
+        let year = Math.floor(Math.floor(assetsLength / 12));
+        for (let i = 0; i < year; i++) {
+            arrReturn = arrReturn.concat(arrfirstYear)
+        }
+        let month = assetsLength - year * 12
+        for (let i = 0; i < month; i++) {
+            arrReturn.push(arrfirstYear[i])
+        }
+        return arrReturn
     }
 
     getConvertLast(year, month, day) {
@@ -97,14 +108,14 @@ class Result extends React.Component {
         return (
             <div>
                 <Header title={"結果"} />
-                <LineExample />
+                <LineGraph
+                    data={this.state.assets}
+                    labels={this.state.labels} />
                 <div className="App-body">
                     <div>{this.state.result}</div>
                     <br />
                     <Button onClick={this.handleClick.bind(this)}>戻る</Button>
-                    <LineExample />
                 </div>
-                <LineExample />
             </div>
         )
     }
