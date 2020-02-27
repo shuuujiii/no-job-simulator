@@ -121,17 +121,6 @@ class ExtraodinaryOutcome extends React.Component {
     }
 
     render() {
-        var month = Array.from(Array(12).keys(), x => x + 1);
-        var options = month.map(
-            (value, index) => {
-                return (
-                    <option key={index} value={index}>
-                        {value + "月"}
-                    </option>
-                )
-            }
-        );
-
         return (
             <div>
                 <h2 className="h2-title">特別支出</h2>
