@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Container } from 'react-bootstrap';
 import { withRouter } from 'react-router';
-import AuxiliaryGrid from './components/AuxiliaryGrid';
 import Header from './components/Header';
 import Assets from './components/Assets';
 import RegularIncome from './components/RegularIncome';
