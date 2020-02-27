@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Row, Col, Container } from 'react-bootstrap';
+import SelectMonth from '../components/selectMonth'
 import PriceRow from './PriceRow';
 import ColorLine from '../styles/colorline'
 import * as inputjs from '../js/input';
@@ -55,9 +55,10 @@ class ExtraodinaryOutcome extends React.Component {
         })
     }
 
-    handleChangeSelect(e) {
+    handleChangeSelect(value) {
         this.setState({
-            selected: e.target.value,
+            ...this.state,
+            selected: value,
         })
     }
 
@@ -134,23 +135,10 @@ class ExtraodinaryOutcome extends React.Component {
         return (
             <div>
                 <h2 className="h2-title">特別支出</h2>
-                <Form>
-                    <Form.Group controlId="exPaymentMonth">
-                        <Row>
-                            <Col style={{ textAlign: "right" }}>
-                                <Form.Label>月</Form.Label>
-                            </Col>
-                            <Col>
-                                <Form.Control as="select"
-                                    style={{ width: 100 }}
-                                    onChange={this.handleChangeSelect.bind(this)}
-                                    value={this.state.selected}>
-                                    {options}
-                                </Form.Control>
-                            </Col>
-                        </Row>
-                    </Form.Group>
-                </Form>
+                <SelectMonth
+                    id={"exPaymentMonth"}
+                    onChange={(value) => this.handleChangeSelect(value)}
+                />
                 <PriceRow
                     title={"税金"}
                     id={"tax"}

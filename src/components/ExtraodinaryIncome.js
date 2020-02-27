@@ -1,6 +1,6 @@
 import React from 'react';
-import { Form, Row, Col } from 'react-bootstrap'
 import PriceRow from '../components/PriceRow';
+import SelectMonth from '../components/selectMonth';
 import * as inputjs from '../js/input';
 import * as parsejs from '../js/parse';
 class ExtraodinaryIncome extends React.Component {
@@ -41,9 +41,10 @@ class ExtraodinaryIncome extends React.Component {
     }
 
 
-    handleChangeSelect(e) {
+    handleChangeSelect(value) {
         this.setState({
-            selected: e.target.value,
+            ...this.state,
+            selected: value,
         })
     }
 
@@ -80,36 +81,14 @@ class ExtraodinaryIncome extends React.Component {
     }
 
     render() {
-        var month = Array.from(Array(12).keys(), x => x + 1);
-        var options = month.map(
-            (value, index) => {
-                return (
-                    <option key={index} value={index}>
-                        {value + "月"}
-                    </option>
-                )
-            }
-        );
+
         return (
             <div>
                 <h2 className="h2-title">臨時収入</h2>
-                <Form>
-                    <Form.Group controlId="exIncomeMonth">
-                        <Row>
-                            <Col style={{ textAlign: "right" }}>
-                                <Form.Label>月</Form.Label>
-                            </Col>
-                            <Col>
-                                <Form.Control as="select"
-                                    style={{ width: 100 }}
-                                    onChange={this.handleChangeSelect.bind(this)}
-                                    value={this.state.selected}>
-                                    {options}
-                                </Form.Control>
-                            </Col>
-                        </Row>
-                    </Form.Group>
-                </Form>
+                <SelectMonth
+                    id={"exIncomeMonth"}
+                    onChange={(value) => this.handleChangeSelect(value)}
+                />
                 <PriceRow
                     title={"臨時収入"}
                     id={"exincome"}
