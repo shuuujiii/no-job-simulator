@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Simulator from './simulator';
+import Simulator from './components/Simulator';
 import ExtraodinaryOutcome from './components/ExtraodinaryPayment';
 import Result from './components/Result';
 

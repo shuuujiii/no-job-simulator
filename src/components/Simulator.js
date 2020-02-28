@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { Button, Container } from 'react-bootstrap';
 import { withRouter } from 'react-router';
-import Header from './components/Header';
-import Assets from './components/Assets';
-import RegularIncome from './components/RegularIncome';
-import ExtraodinaryIncome from './components/ExtraodinaryIncome';
-import RegularPayment from './components/RegularPayment';
-import ExtraodinaryPayment from './components/ExtraodinaryPayment';
+import Header from './Header';
+import Assets from './Assets';
+import RegularIncome from './RegularIncome';
+import ExtraodinaryIncome from './ExtraodinaryIncome';
+import RegularPayment from './RegularPayment';
+import ExtraodinaryPayment from './ExtraodinaryPayment';
 
 class Simulator extends Component {
     constructor(props) {
