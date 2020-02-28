@@ -15,7 +15,10 @@ class Result extends React.Component {
             exPayment: this.props.location.state.exPayment,
             labels: [],
             assets: [],
-            result: "",
+            result: {
+                remainMonth: "",
+                deadline: "",
+            },
         }
     }
 
@@ -37,19 +40,7 @@ class Result extends React.Component {
         })
     }
 
-    getResult(allMonth) {
-        if (allMonth <= 0) {
-            return "お金を貯めてから無職になってください！";
-        }
-        if (allMonth >= 100) {
-            return "100年以上無職でも大丈夫です。おめでとう！";
-        }
-        let year = Math.floor(Math.floor(allMonth) / 12);
-        let month = Math.floor(allMonth) - year * 12;
-        let day = Math.floor((allMonth - (month + year * 12)) * 30);
-        let result = this.getConvertLast(year, month, day);
-        return result;
-    }
+
 
     getAssets(monthIndex) {
         let asset = parsejs.parseIntZero(this.state.asset);
@@ -87,6 +78,32 @@ class Result extends React.Component {
         return arrReturn
     }
 
+    getResult(allMonth) {
+        if (allMonth <= 0) {
+            return {
+                remainMonth: "お金を貯めてから無職になってください！",
+                deadline: "終了！",
+            }
+        }
+        if (allMonth >= 100) {
+            return {
+                remainMonth: "100年以上無職でも大丈夫です。おめでとう！",
+                deadline: "∞",
+            }
+        }
+        let year = Math.floor(Math.floor(allMonth) / 12);
+        let month = Math.floor(allMonth) - year * 12;
+        let day = Math.floor((allMonth - (month + year * 12)) * 30);
+        let result = this.getConvertLast(year, month, day);
+        let today = new Date()
+        today.setMonth(today.getMonth() + allMonth)
+        let deadline = today.getFullYear() + '年' + (today.getMonth() + 1) + "月まで"
+        return {
+            remainMonth: result,
+            deadline: deadline,
+        };
+    }
+
     getConvertLast(year, month, day) {
         let result = ""
         if (year !== 0) {
@@ -108,11 +125,15 @@ class Result extends React.Component {
         return (
             <div>
                 <Header title={"結果"} />
+                <div className="App-body">
+                    <div>{this.state.result.remainMonth}</div>
+                    <div>{this.state.result.deadline}</div>
+                    <br />
+                </div>
                 <LineGraph
                     data={this.state.assets}
                     labels={this.state.labels} />
                 <div className="App-body">
-                    <div>{this.state.result}</div>
                     <br />
                     <Button onClick={this.handleClick.bind(this)}>戻る</Button>
                 </div>
