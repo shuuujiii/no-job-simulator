@@ -6,7 +6,6 @@ import LineGraph from './Line';
 import * as parsejs from '../js/parse';
 import * as commonjs from '../js/common';
 import { connect } from 'react-redux';
-import * as simActions from '../actions/simulatorActions'
 class Result extends React.Component {
     constructor(props) {
         super(props)
@@ -19,11 +18,6 @@ class Result extends React.Component {
             },
         }
     }
-
-    // handleClick() {
-    //     this.props.history.push("/");
-    // }
-
     componentDidMount() {
         let monthIndex = new Date().getMonth()
         let assets = this.getAssets(monthIndex)
@@ -44,8 +38,6 @@ class Result extends React.Component {
         let asset = parsejs.parseIntZero(this.props.siminfo.total.asset.info);
         let payment = parsejs.parseIntZero(this.props.siminfo.total.payment.info);
         let income = parsejs.parseIntZero(this.props.siminfo.income.info.income);
-        console.log('asset', asset)
-        console.log('payment', payment)
         let arrExIncome = [...this.props.siminfo.exincome.info.exincome]
         let arrExPayment = [...this.props.siminfo.expayments.info.expayments]
         let restMoney = asset
@@ -136,13 +128,11 @@ class Result extends React.Component {
                 <div className="App-body">
                     <br />
                     <Link to="/"><Button>戻る</Button></Link>
-                    {/* <Button onClick={this.handleClick.bind(this)}>戻る</Button> */}
                 </div>
             </div>
         )
     }
 }
-
 
 const mapStateToProps = state => (
     { siminfo: state.sim }

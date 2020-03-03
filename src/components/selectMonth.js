@@ -3,19 +3,7 @@ import { Form, Row, Col } from 'react-bootstrap'
 
 
 class SelectMonth extends React.Component {
-    // constructor(props) {
-    //     super(props)
-    //     this.state = {
-    //         selected: 0,
-    //         id: this.props.id,
-    //     }
-    // }
-
     handleChangeSelect(e) {
-        // this.setState({
-        //     ...this.state,
-        //     selected: e.target.value,
-        // })
         this.props.onChange(e.target.value);
     }
 

@@ -138,24 +138,20 @@ export default function (state = initialState, action) {
                 exincome: {
                     ...state.exincome,
                     info: {
-                        // ...state.exincome.info,
                         exincome: [...state.exincome.info.exincome].map((item, index) => {
                             if (index !== state.exincome.selected) {
                                 return item
                             }
                             return action.payload.input
                         })
-                        // exincome: [...state.exincome.info.exincome.slice(0, state.exincome.selected), action.payload.input, ...state.exincome.info.exincome.slice(state.exincome.selected + 1)]
                     },
                     display: {
-                        // ...state.exincome.display,
                         exincome: [...state.exincome.display.exincome].map((item, index) => {
                             if (index !== state.exincome.selected) {
                                 return item
                             }
                             return action.payload.display
                         })
-                        // exincome: [...state.exincome.display.exincome.slice(0, state.exincome.selected), action.payload.display, ...state.exincome.display.exincome.slice(state.exincome.selected + 1)]
                     },
                 },
             }

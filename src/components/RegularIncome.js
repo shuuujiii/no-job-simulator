@@ -1,9 +1,7 @@
 import React from 'react';
 import PriceRow from '../components/PriceRow';
-import * as inputjs from '../js/input';
 import * as simActions from '../actions/simulatorActions'
 import { connect } from 'react-redux';
-
 
 class RegularIncome extends React.Component {
 
