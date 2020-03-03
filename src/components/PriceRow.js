@@ -11,8 +11,6 @@ class PriceRow extends Component {
     }
 
     onHandleChangeInput(e) {
-        console.log('name', e.target.name)
-        console.log('value', e.target.value)
         this.props.handleChange(e.target.name, e.target.value);
     }
 

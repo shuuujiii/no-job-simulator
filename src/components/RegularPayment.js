@@ -14,61 +14,61 @@ class RegularPayment extends React.Component {
                     id={"rent"}
                     handleChange={(key, value) => this.props.updatePayments(key, value)}
                     handleOnBlur={() => this.props.sumPayments()}
-                    value={this.props.siminfo.payments.display.rent} />
+                    value={this.props.payments.display.rent} />
                 <PriceRow
                     title={"光熱費"}
                     id={"utility"}
                     handleChange={(key, value) => this.props.updatePayments(key, value)}
                     handleOnBlur={() => this.props.sumPayments()}
-                    value={this.props.siminfo.payments.display.utility} />
+                    value={this.props.payments.display.utility} />
                 <PriceRow
                     title={"通信費"}
                     id={"communication"}
                     handleChange={(key, value) => this.props.updatePayments(key, value)}
                     handleOnBlur={() => this.props.sumPayments()}
-                    value={this.props.siminfo.payments.display.communication} />
+                    value={this.props.payments.display.communication} />
                 <PriceRow
                     title={"服飾費"}
                     id={"clothes"}
                     handleChange={(key, value) => this.props.updatePayments(key, value)}
                     handleOnBlur={() => this.props.sumPayments()}
-                    value={this.props.siminfo.payments.display.clothes} />
+                    value={this.props.payments.display.clothes} />
                 <PriceRow
                     title={"日用品"}
                     id={"daily"}
                     handleChange={(key, value) => this.props.updatePayments(key, value)}
                     handleOnBlur={() => this.props.sumPayments()}
-                    value={this.props.siminfo.payments.display.daily} />
+                    value={this.props.payments.display.daily} />
                 <PriceRow
                     title={"娯楽費"}
                     id={"hobby"}
                     handleChange={(key, value) => this.props.updatePayments(key, value)}
                     handleOnBlur={() => this.props.sumPayments()}
-                    value={this.props.siminfo.payments.display.hobby} />
+                    value={this.props.payments.display.hobby} />
                 <PriceRow
                     title={"教育費"}
                     id={"education"}
                     handleChange={(key, value) => this.props.updatePayments(key, value)}
                     handleOnBlur={() => this.props.sumPayments()}
-                    value={this.props.siminfo.payments.display.education} />
+                    value={this.props.payments.display.education} />
                 <PriceRow
                     title={"交通費"}
                     id={"transportation"}
                     handleChange={(key, value) => this.props.updatePayments(key, value)}
                     handleOnBlur={() => this.props.sumPayments()}
-                    value={this.props.siminfo.payments.display.transportation} />
+                    value={this.props.payments.display.transportation} />
                 <PriceRow
                     title={"食費"}
                     id={"food"}
                     handleChange={(key, value) => this.props.updatePayments(key, value)}
                     handleOnBlur={() => this.props.sumPayments()}
-                    value={this.props.siminfo.payments.display.food} />
+                    value={this.props.payments.display.food} />
                 <PriceRow
                     title={"その他"}
                     id={"otherPayment"}
                     handleChange={(key, value) => this.props.updatePayments(key, value)}
                     handleOnBlur={() => this.props.sumPayments()}
-                    value={this.props.siminfo.payments.display.otherPayment} />
+                    value={this.props.payments.display.otherPayment} />
                 <ColorLine color="gray" />
 
                 <PriceRow
@@ -76,14 +76,17 @@ class RegularPayment extends React.Component {
                     id={"payment"}
                     handleChange={(key, value) => this.props.updateTotal(key, value)}
                     handleOnBlur={() => { return; }}
-                    value={this.props.siminfo.total.payment.display}
+                    value={this.props.payment.display}
                 />
             </div>
         )
     }
 }
 const mapStateToProps = state => (
-    { siminfo: state.sim }
+    {
+        payments: state.sim.payments,
+        payment: state.sim.total.payment,
+    }
 );
 
 const mapDispatchToProps = dispatch => {

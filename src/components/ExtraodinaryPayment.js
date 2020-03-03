@@ -12,7 +12,7 @@ class ExtraodinaryOutcome extends React.Component {
                 <h2 className="h2-title">特別支出</h2>
                 <SelectMonth
                     id={"exPaymentMonth"}
-                    selected={this.props.siminfo.expayments.selected}
+                    selected={this.props.expayments.selected}
                     onChange={(index) => this.props.updateExPaymentsSelected(index)}
                 />
                 <PriceRow
@@ -20,7 +20,7 @@ class ExtraodinaryOutcome extends React.Component {
                     id={"expayments"}
                     handleChange={(key, value) => this.props.updateExPayments(key, value)}
                     handleOnBlur={() => { return; }}
-                    value={this.props.siminfo.expayments.display.expayments[this.props.siminfo.expayments.selected]} />
+                    value={this.props.expayments.display.expayments[this.props.expayments.selected]} />
                 <ColorLine color={"gray"} />
             </div>
         )
@@ -28,7 +28,7 @@ class ExtraodinaryOutcome extends React.Component {
 }
 
 const mapStateToProps = state => (
-    { siminfo: state.sim }
+    { expayments: state.sim.expayments }
 );
 
 const mapDispatchToProps = dispatch => {

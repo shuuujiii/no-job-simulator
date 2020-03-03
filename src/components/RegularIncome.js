@@ -14,14 +14,14 @@ class RegularIncome extends React.Component {
                     id={"income"}
                     handleChange={(key, value) => this.props.updateIncome(key, value)}
                     handleOnBlur={() => { return; }}
-                    value={this.props.siminfo.income.display.income} />
+                    value={this.props.income.display.income} />
             </div>
         )
     }
 }
 
 const mapStateToProps = state => (
-    { siminfo: state.sim }
+    { income: state.sim.income }
 )
 
 const mapDispatchToProps = dispatch => {

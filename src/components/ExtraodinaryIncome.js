@@ -11,7 +11,7 @@ class ExtraodinaryIncome extends React.Component {
                 <h2 className="h2-title">臨時収入</h2>
                 <SelectMonth
                     id={"exIncomeMonth"}
-                    selected={this.props.siminfo.exincome.selected}
+                    selected={this.props.exincome.selected}
                     onChange={(index) => this.props.updateExIncomeSelected(index)}
                 />
                 <PriceRow
@@ -19,14 +19,14 @@ class ExtraodinaryIncome extends React.Component {
                     id={"exincome"}
                     handleChange={(key, value) => this.props.updateExIncome(key, value)}
                     handleOnBlur={() => { return; }}
-                    value={this.props.siminfo.exincome.display.exincome[this.props.siminfo.exincome.selected]} />
+                    value={this.props.exincome.display.exincome[this.props.exincome.selected]} />
             </div>
         )
     }
 }
 
 const mapStateToProps = state => (
-    { siminfo: state.sim }
+    { exincome: state.sim.exincome }
 );
 
 const mapDispatchToProps = dispatch => {

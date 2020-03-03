@@ -15,26 +15,26 @@ class Assets extends React.Component {
                     id={"money"}
                     handleChange={(key, value) => this.props.updateAssets(key, value)}
                     handleOnBlur={() => this.props.sumAssets()}
-                    value={this.props.siminfo.assets.display.money} />
+                    value={this.props.assets.display.money} />
                 <PriceRow
                     title={"有価証券"}
                     id={"stock"}
                     handleChange={(key, value) => this.props.updateAssets(key, value)}
                     handleOnBlur={() => this.props.sumAssets()}
-                    value={this.props.siminfo.assets.display.stock} />
+                    value={this.props.assets.display.stock} />
                 <PriceRow
                     title={"その他"}
                     id={"otherAsset"}
                     handleChange={(key, value) => this.props.updateAssets(key, value)}
                     handleOnBlur={() => this.props.sumAssets()}
-                    value={this.props.siminfo.assets.display.otherAsset} />
+                    value={this.props.assets.display.otherAsset} />
                 <ColorLine color="gray" />
                 <PriceRow
                     title={"資産合計"}
                     id={"asset"}
                     handleChange={(key, value) => this.props.updateTotal(key, value)}
                     handleOnBlur={() => { return; }}
-                    value={this.props.siminfo.total.asset.display} />
+                    value={this.props.asset.display} />
             </div>
         )
     }
@@ -42,7 +42,10 @@ class Assets extends React.Component {
 
 
 const mapStateToProps = state => (
-    { siminfo: state.sim }
+    {
+        asset: state.sim.total.asset,
+        assets: state.sim.assets,
+    }
 );
 
 const mapDispatchToProps = dispatch => {
