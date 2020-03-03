@@ -1,103 +1,39 @@
 import React from 'react';
 import PriceRow from '../components/PriceRow';
 import SelectMonth from '../components/selectMonth';
-import * as inputjs from '../js/input';
-import * as parsejs from '../js/parse';
+import { connect } from 'react-redux';
+import * as simActions from '../actions/simulatorActions'
 class ExtraodinaryIncome extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            selected: 0,
-            infoList: [
-                {
-                    info: {
-                        exincome: "",
-                    },
-                    display: {
-                        exincome: "",
-                    },
-                }
-            ]
-        };
-    }
-
-    componentDidMount() {
-        //selected変更時のために、state の infoList配列を作成する必要がある。
-        let arr = []
-        for (let i = 0; i < 12; i++) {
-            arr.push({
-                info: {
-                    exincome: "",
-                },
-                display: {
-                    exincome: "",
-                },
-            })
-        }
-        this.setState({
-            ...this.state,
-            infoList: arr,
-        })
-    }
-
-
-    handleChangeSelect(value) {
-        this.setState({
-            ...this.state,
-            selected: value,
-        })
-    }
-
-    handleChangeInputInfo(e) {
-        this.setState({
-            ...this.state,
-            infoList: this.state.infoList.map((value, index) => {
-                if (this.state.selected == index) {
-                    return {
-                        ...value,
-                        info: {
-                            ...value.info,
-                            [e.target.name]: inputjs.InputNumOnly(e.target.value),
-                        },
-                        display:
-                        {
-                            ...value.display,
-                            [e.target.name]: inputjs.InputComma(e.target.value),
-                        },
-                    }
-                } else {
-                    return value;
-                }
-            })
-        });
-    }
-
-    handleOnBlur() {
-        let arrExIncome = []
-        this.state.infoList.forEach((value) => {
-            arrExIncome.push(parsejs.parseIntZero(value.info.exincome));
-        })
-        this.props.updateParentInfo('exIncome', arrExIncome)
-    }
 
     render() {
-
         return (
             <div>
                 <h2 className="h2-title">臨時収入</h2>
                 <SelectMonth
                     id={"exIncomeMonth"}
-                    onChange={(value) => this.handleChangeSelect(value)}
+                    selected={this.props.siminfo.exincome.selected}
+                    onChange={(index) => this.props.updateExIncomeSelected(index)}
                 />
                 <PriceRow
                     title={"臨時収入"}
                     id={"exincome"}
-                    handleChange={this.handleChangeInputInfo.bind(this)}
-                    handleOnBlur={this.handleOnBlur.bind(this)}
-                    value={this.state.infoList[this.state.selected].display.exincome} />
+                    handleChange={(key, value) => this.props.updateExIncome(key, value)}
+                    handleOnBlur={() => { return; }}
+                    value={this.props.siminfo.exincome.display.exincome[this.props.siminfo.exincome.selected]} />
             </div>
         )
     }
 }
 
-export default ExtraodinaryIncome
+const mapStateToProps = state => (
+    { siminfo: state.sim }
+);
+
+const mapDispatchToProps = dispatch => {
+    return {
+        updateExIncomeSelected: (index) => dispatch(simActions.updateExIncomeSelected(index)),
+        updateExIncome: (key, value) => dispatch(simActions.updateExIncome(key, value)),
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ExtraodinaryIncome)

@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import { Button, Container } from 'react-bootstrap';
 import { withRouter } from 'react-router';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import * as simActions from '../actions/simulatorActions';
+import { Row, Col, FormControl } from 'react-bootstrap';
+
 import Header from './Header';
 import Assets from './Assets';
 import RegularIncome from './RegularIncome';
@@ -9,42 +14,23 @@ import RegularPayment from './RegularPayment';
 import ExtraodinaryPayment from './ExtraodinaryPayment';
 
 class Simulator extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            info: {
-                asset: "",
-                payment: "",
-                income: "",
-                exIncome: [],
-                exPayment: [],
-            },
-            error: "",
-        };
-    }
-
-    updateParentInfo(key, value) {
-        this.setState({
-            info: {
-                ...this.state.info,
-                [key]: value,
-            }
-        })
+    componentDidMount() {
+        console.log("componentDidMount")
+        this.props.fetchData()
     }
 
     show(e) {
         this.props.history.push({
             pathname: '/result',
-            state: {
-                asset: this.state.info.asset,
-                payment: this.state.info.payment,
-                income: this.state.info.income,
-                exIncome: this.state.info.exIncome,
-                exPayment: this.state.info.exPayment,
-            }
+            // state: {
+            //     asset: this.props.siminfo.info.asset,
+            //     payment: this.props.siminfo.info.payment,
+            //     income: this.props.siminfo.info.income,
+            //     exIncome: this.props.siminfo.info.exIncome,
+            //     exPayment: this.props.siminfo.info.exPayment,
+            // }
         })
     }
-
 
     render() {
         return (
@@ -52,28 +38,33 @@ class Simulator extends Component {
                 <Header title={"無職シミュレーター"} />
                 <div className="App-body">
                     <Container>
-                        <Assets
-                            updateParentInfo={(key, value) => this.updateParentInfo(key, value)} />
+                        <Assets />
                         <br />
-                        <RegularIncome
-                            updateParentInfo={(key, value) => this.updateParentInfo(key, value)} />
+                        <RegularIncome />
                         <br />
-                        <ExtraodinaryIncome
-                            updateParentInfo={(key, value) => this.updateParentInfo(key, value)} />
+                        <ExtraodinaryIncome />
                         <br />
-                        <RegularPayment
-                            info={this.state.info}
-                            updateParentInfo={(key, value) => this.updateParentInfo(key, value)} />
+                        <RegularPayment />
                         <br />
-                        <ExtraodinaryPayment
-                            updateParentInfo={(key, value) => this.updateParentInfo(key, value)} />
+                        <ExtraodinaryPayment />
                     </Container>
                     <br />
-                    <Button variant="primary" type="button" onClick={this.show.bind(this)}>計算</Button>
+                    <Link to="/result"><Button>計算</Button></Link>
+                    {/* <Button variant="primary" type="button" onClick={this.show.bind(this)}></Button> */}
                     <br />
                 </div>
             </div >
         );
     }
 }
-export default withRouter(Simulator)
+
+const mapStateToProps = state => (
+    { siminfo: state.sim }
+);
+
+const mapDispatchToProps = dispatch => {
+    return {
+        fetchData: () => dispatch(simActions.fetchData()),
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Simulator)

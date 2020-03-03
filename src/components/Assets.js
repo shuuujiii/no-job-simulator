@@ -1,64 +1,10 @@
 import React from 'react'
 import PriceRow from './PriceRow';
 import ColorLine from '../styles/colorline';
-import * as inputjs from '../js/input';
-import * as calcjs from '../js/calc';
+import { connect } from 'react-redux';
+import * as simActions from '../actions/simulatorActions'
 
 class Assets extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            info: {
-                money: "",
-                stock: "",
-                otherAsset: "",
-            },
-            display: {
-                money: "",
-                stock: "",
-                otherAsset: "",
-            },
-            asset: {
-                info: "",
-                display: "",
-            },
-        }
-    }
-
-    handleChangeInputInfo(e) {
-        this.setState({
-            ...this.state,
-            info: {
-                ...this.state.info,
-                [e.target.name]: inputjs.InputNumOnly(e.target.value),
-            },
-            display: {
-                ...this.state.display,
-                [e.target.name]: inputjs.InputComma(e.target.value),
-            }
-        });
-    }
-
-    handleOnBlurInfo() {
-        let sum = calcjs.getValueSumOfKeyValueObj({ ...this.state.info });
-        this.updateAsset(sum)
-    }
-
-    handleChangeInputAsset(e) {
-        this.updateAsset(e.target.value);
-    }
-
-    // !!!updateParentProps!!!;
-    updateAsset(asset) {
-        this.setState({
-            ...this.state,
-            asset: {
-                info: asset,
-                display: inputjs.InputComma(asset.toString()),
-            }
-        })
-        this.props.updateParentInfo("asset", asset)
-    }
 
     render() {
         return (
@@ -67,32 +13,43 @@ class Assets extends React.Component {
                 <PriceRow
                     title={"現金/預金"}
                     id={"money"}
-                    handleChange={this.handleChangeInputInfo.bind(this)}
-                    handleOnBlur={this.handleOnBlurInfo.bind(this)}
-                    value={this.state.display.money} />
+                    handleChange={(key, value) => this.props.updateAssets(key, value)}
+                    handleOnBlur={() => this.props.sumAssets()}
+                    value={this.props.siminfo.assets.display.money} />
                 <PriceRow
                     title={"有価証券"}
                     id={"stock"}
-                    handleChange={this.handleChangeInputInfo.bind(this)}
-                    handleOnBlur={this.handleOnBlurInfo.bind(this)}
-                    value={this.state.display.stock} />
+                    handleChange={(key, value) => this.props.updateAssets(key, value)}
+                    handleOnBlur={() => this.props.sumAssets()}
+                    value={this.props.siminfo.assets.display.stock} />
                 <PriceRow
                     title={"その他"}
                     id={"otherAsset"}
-                    handleChange={this.handleChangeInputInfo.bind(this)}
-                    handleOnBlur={this.handleOnBlurInfo.bind(this)}
-                    value={this.state.display.otherAsset} />
+                    handleChange={(key, value) => this.props.updateAssets(key, value)}
+                    handleOnBlur={() => this.props.sumAssets()}
+                    value={this.props.siminfo.assets.display.otherAsset} />
                 <ColorLine color="gray" />
                 <PriceRow
                     title={"資産合計"}
                     id={"asset"}
-                    handleChange={this.handleChangeInputAsset.bind(this)}
+                    handleChange={(key, value) => this.props.updateTotal(key, value)}
                     handleOnBlur={() => { return; }}
-                    value={this.state.asset.display}
-                />
+                    value={this.props.siminfo.total.asset.display} />
             </div>
         )
     }
 }
 
-export default Assets
+
+const mapStateToProps = state => (
+    { siminfo: state.sim }
+);
+
+const mapDispatchToProps = dispatch => {
+    return {
+        updateAssets: (key, value) => dispatch(simActions.updateAssets(key, value)),
+        sumAssets: () => dispatch(simActions.sumAssets()),
+        updateTotal: (key, value) => dispatch(simActions.updateTotal(key, value)),
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Assets)

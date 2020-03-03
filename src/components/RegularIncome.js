@@ -1,33 +1,11 @@
 import React from 'react';
 import PriceRow from '../components/PriceRow';
 import * as inputjs from '../js/input';
-class RegularIncome extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            info: {
-                income: "",
-            },
-            display: {
-                income: "",
-            },
-        };
-    }
-    handleChangeInputInfo(e) {
-        this.setState({
-            ...this.state,
-            info: {
-                ...this.state.info,
-                [e.target.name]: inputjs.InputNumOnly(e.target.value),
-            },
-            display: {
-                ...this.state.display,
-                [e.target.name]: inputjs.InputComma(e.target.value),
-            }
-        });
-        this.props.updateParentInfo("income", inputjs.InputNumOnly(e.target.value))
-    }
+import * as simActions from '../actions/simulatorActions'
+import { connect } from 'react-redux';
 
+
+class RegularIncome extends React.Component {
 
     render() {
         return (
@@ -36,12 +14,22 @@ class RegularIncome extends React.Component {
                 <PriceRow
                     title={"定期収入"}
                     id={"income"}
-                    handleChange={this.handleChangeInputInfo.bind(this)}
+                    handleChange={(key, value) => this.props.updateIncome(key, value)}
                     handleOnBlur={() => { return; }}
-                    value={this.state.display.income} />
+                    value={this.props.siminfo.income.display.income} />
             </div>
         )
     }
 }
 
-export default RegularIncome
+const mapStateToProps = state => (
+    { siminfo: state.sim }
+)
+
+const mapDispatchToProps = dispatch => {
+    return {
+        updateIncome: (key, value) => dispatch(simActions.updateIncome(key, value)),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RegularIncome)

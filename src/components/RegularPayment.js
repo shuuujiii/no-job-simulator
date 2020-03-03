@@ -1,80 +1,10 @@
 import React from 'react'
 import PriceRow from './PriceRow';
 import ColorLine from '../styles/colorline';
-import * as inputjs from '../js/input';
-import * as calcjs from '../js/calc';
+import { connect } from 'react-redux';
+import * as simActions from '../actions/simulatorActions'
 
 class RegularPayment extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            info: {
-                food: "",
-                rent: "",
-                utility: "",
-                communication: "",
-                clothes: "",
-                daily: "",
-                hobby: "",
-                education: "",
-                transportation: "",
-                otherPayment: "",
-
-            },
-            display: {
-                food: "",
-                rent: "",
-                utility: "",
-                communication: "",
-                clothes: "",
-                daily: "",
-                hobby: "",
-                education: "",
-                transportation: "",
-                otherPayment: "",
-            },
-            payment: {
-                info: "",
-                display: "",
-            },
-        }
-    }
-
-    handleChangeInputInfo(e) {
-        this.setState({
-            ...this.state,
-            info: {
-                ...this.state.info,
-                [e.target.name]: inputjs.InputNumOnly(e.target.value),
-            },
-            display: {
-                ...this.state.display,
-                [e.target.name]: inputjs.InputComma(e.target.value),
-            }
-        });
-    }
-
-    handleOnBlurInfo() {
-        let sum = calcjs.getValueSumOfKeyValueObj({ ...this.state.info });
-        this.updatePayment(sum)
-    }
-
-    handleChangeInputPayment(e) {
-        this.updatePayment(inputjs.InputNumOnly(e.target.value))
-    }
-
-    // !!!updateParentProps!!!;
-    updatePayment(payment) {
-        this.setState({
-            ...this.state,
-            payment: {
-                info: payment,
-                display: inputjs.InputComma(payment.toString()),
-            }
-        })
-        this.props.updateParentInfo("payment", payment)
-    }
-
     render() {
         return (
             <div>
@@ -82,75 +12,85 @@ class RegularPayment extends React.Component {
                 <PriceRow
                     title={"家賃"}
                     id={"rent"}
-                    handleChange={this.handleChangeInputInfo.bind(this)}
-                    handleOnBlur={this.handleOnBlurInfo.bind(this)}
-                    value={this.state.display.rent} />
+                    handleChange={(key, value) => this.props.updatePayments(key, value)}
+                    handleOnBlur={() => this.props.sumPayments()}
+                    value={this.props.siminfo.payments.display.rent} />
                 <PriceRow
                     title={"光熱費"}
                     id={"utility"}
-                    handleChange={this.handleChangeInputInfo.bind(this)}
-                    handleOnBlur={this.handleOnBlurInfo.bind(this)}
-                    value={this.state.display.utility} />
+                    handleChange={(key, value) => this.props.updatePayments(key, value)}
+                    handleOnBlur={() => this.props.sumPayments()}
+                    value={this.props.siminfo.payments.display.utility} />
                 <PriceRow
                     title={"通信費"}
                     id={"communication"}
-                    handleChange={this.handleChangeInputInfo.bind(this)}
-                    handleOnBlur={this.handleOnBlurInfo.bind(this)}
-                    value={this.state.display.communication} />
+                    handleChange={(key, value) => this.props.updatePayments(key, value)}
+                    handleOnBlur={() => this.props.sumPayments()}
+                    value={this.props.siminfo.payments.display.communication} />
                 <PriceRow
                     title={"服飾費"}
                     id={"clothes"}
-                    handleChange={this.handleChangeInputInfo.bind(this)}
-                    handleOnBlur={this.handleOnBlurInfo.bind(this)}
-                    value={this.state.display.clothes} />
+                    handleChange={(key, value) => this.props.updatePayments(key, value)}
+                    handleOnBlur={() => this.props.sumPayments()}
+                    value={this.props.siminfo.payments.display.clothes} />
                 <PriceRow
                     title={"日用品"}
                     id={"daily"}
-                    handleChange={this.handleChangeInputInfo.bind(this)}
-                    handleOnBlur={this.handleOnBlurInfo.bind(this)}
-                    value={this.state.display.daily} />
+                    handleChange={(key, value) => this.props.updatePayments(key, value)}
+                    handleOnBlur={() => this.props.sumPayments()}
+                    value={this.props.siminfo.payments.display.daily} />
                 <PriceRow
                     title={"娯楽費"}
                     id={"hobby"}
-                    handleChange={this.handleChangeInputInfo.bind(this)}
-                    handleOnBlur={this.handleOnBlurInfo.bind(this)}
-                    value={this.state.display.hobby} />
+                    handleChange={(key, value) => this.props.updatePayments(key, value)}
+                    handleOnBlur={() => this.props.sumPayments()}
+                    value={this.props.siminfo.payments.display.hobby} />
                 <PriceRow
                     title={"教育費"}
                     id={"education"}
-                    handleChange={this.handleChangeInputInfo.bind(this)}
-                    handleOnBlur={this.handleOnBlurInfo.bind(this)}
-                    value={this.state.display.education} />
+                    handleChange={(key, value) => this.props.updatePayments(key, value)}
+                    handleOnBlur={() => this.props.sumPayments()}
+                    value={this.props.siminfo.payments.display.education} />
                 <PriceRow
                     title={"交通費"}
                     id={"transportation"}
-                    handleChange={this.handleChangeInputInfo.bind(this)}
-                    handleOnBlur={this.handleOnBlurInfo.bind(this)}
-                    value={this.state.display.transportation} />
+                    handleChange={(key, value) => this.props.updatePayments(key, value)}
+                    handleOnBlur={() => this.props.sumPayments()}
+                    value={this.props.siminfo.payments.display.transportation} />
                 <PriceRow
                     title={"食費"}
                     id={"food"}
-                    handleChange={this.handleChangeInputInfo.bind(this)}
-                    handleOnBlur={this.handleOnBlurInfo.bind(this)}
-                    value={this.state.display.food} />
+                    handleChange={(key, value) => this.props.updatePayments(key, value)}
+                    handleOnBlur={() => this.props.sumPayments()}
+                    value={this.props.siminfo.payments.display.food} />
                 <PriceRow
                     title={"その他"}
                     id={"otherPayment"}
-                    handleChange={this.handleChangeInputInfo.bind(this)}
-                    handleOnBlur={this.handleOnBlurInfo.bind(this)}
-                    value={this.state.display.otherPayment} />
+                    handleChange={(key, value) => this.props.updatePayments(key, value)}
+                    handleOnBlur={() => this.props.sumPayments()}
+                    value={this.props.siminfo.payments.display.otherPayment} />
                 <ColorLine color="gray" />
 
                 <PriceRow
                     title={"支出合計"}
                     id={"payment"}
-                    handleChange={this.handleChangeInputPayment.bind(this)}
+                    handleChange={(key, value) => this.props.updateTotal(key, value)}
                     handleOnBlur={() => { return; }}
-                    value={this.state.payment.display}
+                    value={this.props.siminfo.total.payment.display}
                 />
             </div>
         )
     }
 }
+const mapStateToProps = state => (
+    { siminfo: state.sim }
+);
 
-export default RegularPayment
+const mapDispatchToProps = dispatch => {
+    return {
+        updatePayments: (key, value) => dispatch(simActions.updatePayments(key, value)),
+        sumPayments: () => dispatch(simActions.sumPayments()),
+        updateTotal: (key, value) => dispatch(simActions.updateTotal(key, value)),
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(RegularPayment)

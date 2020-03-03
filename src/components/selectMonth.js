@@ -3,19 +3,19 @@ import { Form, Row, Col } from 'react-bootstrap'
 
 
 class SelectMonth extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            selected: 0,
-            id: this.props.id,
-        }
-    }
+    // constructor(props) {
+    //     super(props)
+    //     this.state = {
+    //         selected: 0,
+    //         id: this.props.id,
+    //     }
+    // }
 
     handleChangeSelect(e) {
-        this.setState({
-            ...this.state,
-            selected: e.target.value,
-        })
+        // this.setState({
+        //     ...this.state,
+        //     selected: e.target.value,
+        // })
         this.props.onChange(e.target.value);
     }
 
@@ -33,12 +33,12 @@ class SelectMonth extends React.Component {
         return (
             <div>
                 <Form>
-                    <Form.Group controlId={this.state.id}>
+                    <Form.Group controlId={this.props.id}>
                         <Row>
                             <Col sm={{ offset: 6, span: 4 }} className="flexRowCenterParent" >
                                 <Form.Control as="select" style={{ width: 100, alignSelf: "center" }}
                                     onChange={this.handleChangeSelect.bind(this)}
-                                    value={this.state.selected}>
+                                    value={this.props.selected}>
                                     {options}
                                 </Form.Control>
                             </Col>

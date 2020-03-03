@@ -1,18 +1,16 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import Header from './Header';
 import LineGraph from './Line';
 import * as parsejs from '../js/parse';
 import * as commonjs from '../js/common';
+import { connect } from 'react-redux';
+import * as simActions from '../actions/simulatorActions'
 class Result extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            asset: this.props.location.state.asset,
-            payment: this.props.location.state.payment,
-            income: this.props.location.state.income,
-            exIncome: this.props.location.state.exIncome,
-            exPayment: this.props.location.state.exPayment,
             labels: [],
             assets: [],
             result: {
@@ -22,9 +20,9 @@ class Result extends React.Component {
         }
     }
 
-    handleClick() {
-        this.props.history.push("/");
-    }
+    // handleClick() {
+    //     this.props.history.push("/");
+    // }
 
     componentDidMount() {
         let monthIndex = new Date().getMonth()
@@ -43,11 +41,13 @@ class Result extends React.Component {
 
 
     getAssets(monthIndex) {
-        let asset = parsejs.parseIntZero(this.state.asset);
-        let payment = parsejs.parseIntZero(this.state.payment);
-        let income = parsejs.parseIntZero(this.state.income);
-        let arrExIncome = [...this.state.exIncome]
-        let arrExPayment = [...this.state.exPayment]
+        let asset = parsejs.parseIntZero(this.props.siminfo.total.asset.info);
+        let payment = parsejs.parseIntZero(this.props.siminfo.total.payment.info);
+        let income = parsejs.parseIntZero(this.props.siminfo.income.info.income);
+        console.log('asset', asset)
+        console.log('payment', payment)
+        let arrExIncome = [...this.props.siminfo.exincome.info.exincome]
+        let arrExPayment = [...this.props.siminfo.expayments.info.expayments]
         let restMoney = asset
         let assets = [restMoney]
         while (restMoney >= 0) {
@@ -135,11 +135,17 @@ class Result extends React.Component {
                     labels={this.state.labels} />
                 <div className="App-body">
                     <br />
-                    <Button onClick={this.handleClick.bind(this)}>戻る</Button>
+                    <Link to="/"><Button>戻る</Button></Link>
+                    {/* <Button onClick={this.handleClick.bind(this)}>戻る</Button> */}
                 </div>
             </div>
         )
     }
 }
 
-export default Result
+
+const mapStateToProps = state => (
+    { siminfo: state.sim }
+);
+
+export default connect(mapStateToProps, null)(Result)

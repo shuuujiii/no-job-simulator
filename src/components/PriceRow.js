@@ -11,12 +11,15 @@ class PriceRow extends Component {
     }
 
     onHandleChangeInput(e) {
-        this.props.handleChange(e);
+        console.log('name', e.target.name)
+        console.log('value', e.target.value)
+        this.props.handleChange(e.target.name, e.target.value);
     }
 
     onHandleBlur() {
         this.props.handleOnBlur();
     }
+
     render() {
         const styles = {
             row: {
