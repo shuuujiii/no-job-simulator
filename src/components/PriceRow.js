@@ -38,7 +38,7 @@ class PriceRow extends Component {
                 <Row style={styles.row}>
                     <Col sm={{ span: 4, offset: 2 }} style={{ textAlign: "center" }}> {this.state.title} </Col>
                     <Col sm={4} className="flexRowCenterParent">
-                        <FormControl style={{ maxWidth: "160px", minWidth: "160px", alignSelf: "center" }}
+                        <FormControl style={{ maxWidth: "160px", minWidth: "160px", alignSelf: "center", textAlign: "right" }}
                             id={this.props.id}
                             name={this.props.id}
                             onChange={this.onHandleChangeInput.bind(this)}
