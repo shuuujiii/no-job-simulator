@@ -4,5 +4,5 @@ export function InputNumOnly(value) {
 }
 
 export function InputComma(value) {
-    return Number(this.InputNumOnly(value)).toLocaleString();
+    return Number(this.InputNumOnly(value.toString())).toLocaleString();
 }

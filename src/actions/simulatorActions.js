@@ -7,22 +7,22 @@ export const fetchData = () => dispatch => {
     })
 }
 
-export const updateAssets = (key, value) => dispatch => {
-    dispatch({
-        type: actiontype.UPDATE_ASSETS,
-        payload: {
-            key: key,
-            input: inputjs.InputNumOnly(value),
-            display: inputjs.InputComma(value),
-        }
-    })
-}
+// export const updateAssets = (key, value) => dispatch => {
+//     dispatch({
+//         type: actiontype.UPDATE_ASSETS,
+//         payload: {
+//             key: key,
+//             input: inputjs.InputNumOnly(value),
+//             display: inputjs.InputComma(value),
+//         }
+//     })
+// }
 
-export const sumAssets = () => dispatch => {
-    dispatch({
-        type: actiontype.SUM_ASSETS,
-    })
-}
+// export const sumAssets = () => dispatch => {
+//     dispatch({
+//         type: actiontype.SUM_ASSETS,
+//     })
+// }
 
 export const updateIncome = (key, value) => dispatch => {
     dispatch({
