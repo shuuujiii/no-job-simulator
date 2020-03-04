@@ -26,7 +26,7 @@ class Simulator extends Component {
                         <br />
                         <RegularIncome />
                         <br />
-                        {/* <ExtraodinaryIncome /> */}
+                        <ExtraodinaryIncome />
                         <br />
                         <RegularPayment />
                         <br />

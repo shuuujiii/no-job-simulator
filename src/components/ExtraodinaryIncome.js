@@ -2,8 +2,13 @@ import React from 'react';
 import PriceRow from '../components/PriceRow';
 import SelectMonth from '../components/selectMonth';
 import { connect } from 'react-redux';
-import * as simActions from '../actions/simulatorActions'
+import * as simActions from '../actions/extraodinaryIncomeActions';
+import * as inputjs from '../js/input';
 class ExtraodinaryIncome extends React.Component {
+
+    componentDidMount() {
+        this.props.fetchData();
+    }
 
     render() {
         return (
@@ -19,7 +24,7 @@ class ExtraodinaryIncome extends React.Component {
                     id={"exincome"}
                     handleChange={(key, value) => this.props.updateExIncome(key, value)}
                     handleOnBlur={() => { return; }}
-                    value={this.props.exincome.display.exincome[this.props.exincome.selected]} />
+                    value={inputjs.InputComma(this.props.exincome.info.exincome[this.props.exincome.selected])} />
             </div>
         )
     }
@@ -31,6 +36,7 @@ const mapStateToProps = state => (
 
 const mapDispatchToProps = dispatch => {
     return {
+        fetchData: () => dispatch(simActions.fetchExIncomeData()),
         updateExIncomeSelected: (index) => dispatch(simActions.updateExIncomeSelected(index)),
         updateExIncome: (key, value) => dispatch(simActions.updateExIncome(key, value)),
     }
