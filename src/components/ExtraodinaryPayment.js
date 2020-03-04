@@ -3,7 +3,8 @@ import SelectMonth from '../components/selectMonth'
 import PriceRow from './PriceRow';
 import ColorLine from '../styles/colorline'
 import { connect } from 'react-redux';
-import * as simActions from '../actions/simulatorActions'
+import * as simActions from '../actions/extraodinaryPaymentsAction';
+import * as inputjs from '../js/input';
 
 class ExtraodinaryOutcome extends React.Component {
     render() {
@@ -20,7 +21,7 @@ class ExtraodinaryOutcome extends React.Component {
                     id={"expayments"}
                     handleChange={(key, value) => this.props.updateExPayments(key, value)}
                     handleOnBlur={() => { return; }}
-                    value={this.props.expayments.display.expayments[this.props.expayments.selected]} />
+                    value={inputjs.InputComma(this.props.expayments.info.expayments[this.props.expayments.selected])} />
                 <ColorLine color={"gray"} />
             </div>
         )

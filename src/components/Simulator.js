@@ -30,7 +30,7 @@ class Simulator extends Component {
                         <br />
                         <RegularPayment />
                         <br />
-                        {/* <ExtraodinaryPayment />  */}
+                        <ExtraodinaryPayment />
                     </Container>
                     <br />
                     <Link to="/result"><Button>計算</Button></Link>
