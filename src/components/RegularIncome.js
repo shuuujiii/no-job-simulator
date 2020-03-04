@@ -1,10 +1,13 @@
 import React from 'react';
 import PriceRow from '../components/PriceRow';
-import * as simActions from '../actions/simulatorActions'
+import * as simActions from '../actions/incomeActions'
 import { connect } from 'react-redux';
+import * as inputjs from '../js/input';
 
 class RegularIncome extends React.Component {
-
+    componentDidMount() {
+        this.props.fetchData();
+    }
     render() {
         return (
             <div>
@@ -14,7 +17,7 @@ class RegularIncome extends React.Component {
                     id={"income"}
                     handleChange={(key, value) => this.props.updateIncome(key, value)}
                     handleOnBlur={() => { return; }}
-                    value={this.props.income.display.income} />
+                    value={inputjs.InputComma(this.props.income.income)} />
             </div>
         )
     }
@@ -26,6 +29,7 @@ const mapStateToProps = state => (
 
 const mapDispatchToProps = dispatch => {
     return {
+        fetchData: () => dispatch(simActions.fetchIncomeData()),
         updateIncome: (key, value) => dispatch(simActions.updateIncome(key, value)),
     }
 }

@@ -24,7 +24,7 @@ class Simulator extends Component {
                     <Container>
                         <Assets />
                         <br />
-                        {/* <RegularIncome /> */}
+                        <RegularIncome />
                         <br />
                         {/* <ExtraodinaryIncome /> */}
                         <br />

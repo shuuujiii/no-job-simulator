@@ -1,3 +1,5 @@
+
+
 import * as actiontype from './type';
 import * as inputjs from '../js/input';
 import * as parsejs from '../js/parse';
@@ -6,23 +8,6 @@ export const fetchData = () => dispatch => {
         type: actiontype.FETCH_DATA,
     })
 }
-
-// export const updateAssets = (key, value) => dispatch => {
-//     dispatch({
-//         type: actiontype.UPDATE_ASSETS,
-//         payload: {
-//             key: key,
-//             input: inputjs.InputNumOnly(value),
-//             display: inputjs.InputComma(value),
-//         }
-//     })
-// }
-
-// export const sumAssets = () => dispatch => {
-//     dispatch({
-//         type: actiontype.SUM_ASSETS,
-//     })
-// }
 
 export const updateIncome = (key, value) => dispatch => {
     dispatch({
@@ -98,4 +83,3 @@ export const updateTotal = (key, value) => dispatch => {
         }
     })
 }
-

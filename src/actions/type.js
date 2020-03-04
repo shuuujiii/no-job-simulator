@@ -5,6 +5,7 @@ export const UPDATE_ASSETS = 'UPDATE_ASSETS';
 export const SUM_ASSETS = 'SUM_ASSETS';
 export const UPDATE_ASSET = 'UPDATE_ASSET';
 //income
+export const FETCH_INCOME_DATA = 'FETCH_INCOME_DATA';
 export const UPDATE_INCOME = 'UPDATE_INCOME';
 export const UPDATE_TOTAL = 'UPDATE_TOTAL';
 //payments
