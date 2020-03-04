@@ -24,13 +24,13 @@ class Simulator extends Component {
                     <Container>
                         <Assets />
                         <br />
-                        {/* <RegularIncome />
+                        {/* <RegularIncome /> */}
                         <br />
-                        <ExtraodinaryIncome />
+                        {/* <ExtraodinaryIncome /> */}
                         <br />
                         <RegularPayment />
                         <br />
-                        <ExtraodinaryPayment /> */}
+                        {/* <ExtraodinaryPayment />  */}
                     </Container>
                     <br />
                     <Link to="/result"><Button>計算</Button></Link>

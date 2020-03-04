@@ -1,12 +1,20 @@
 export const FETCH_DATA = 'FETCH_DATA';
+//asset
 export const FETCH_ASSET_DATA = 'FETCH_ASSET_DATA';
 export const UPDATE_ASSETS = 'UPDATE_ASSETS';
-export const UPDATE_INCOME = 'UPDATE_INCOME';
 export const SUM_ASSETS = 'SUM_ASSETS';
+export const UPDATE_ASSET = 'UPDATE_ASSET';
+//income
+export const UPDATE_INCOME = 'UPDATE_INCOME';
 export const UPDATE_TOTAL = 'UPDATE_TOTAL';
+//payments
+export const FETCH_PAYMENTS_DATA = 'FETCH_PAYMENTS_DATA';
 export const UPDATE_PAYMENTS = 'UPDATE_PAYMENTS';
 export const SUM_PAYMENTS = 'SUM_PAYMENTS';
+export const UPDATE_PAYMENT = 'UPDATE_PAYMENT';
+//ex-income
 export const UPDATE_EX_INCOME = 'UPDATE_EX_INCOME';
 export const UPDATE_EX_INCOME_SELECTED = 'UPDATE_EX_INCOME_SELECTED';
+//ex-payments
 export const UPDATE_EX_PAYMENTS = 'UPDATE_EX_PAYMENTS';
 export const UPDATE_EX_PAYMENTS_SELECTED = 'UPDATE_EX_PAYMENTS_SELECTED';

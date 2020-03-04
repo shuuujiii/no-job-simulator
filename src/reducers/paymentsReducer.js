@@ -1,20 +1,28 @@
 import * as actiontype from '../actions/type';
+import * as parsejs from '../js/parse';
 import * as calcjs from '../js/calc';
 
 const initialState = {
     info: {
-        money: "",
-        stock: "",
-        otherAsset: "",
+        food: "",
+        rent: "",
+        utility: "",
+        communication: "",
+        clothes: "",
+        daily: "",
+        hobby: "",
+        education: "",
+        transportation: "",
+        otherPayment: "",
     },
     total: "",
 }
 
 export default function (state = initialState, action) {
     switch (action.type) {
-        case actiontype.FETCH_ASSET_DATA:
+        case actiontype.FETCH_PAYMENTS_DATA:
             return state;
-        case actiontype.UPDATE_ASSETS:
+        case actiontype.UPDATE_PAYMENTS:
             return {
                 ...state,
                 info: {
@@ -22,13 +30,13 @@ export default function (state = initialState, action) {
                     [action.payload.key]: action.payload.input,
                 },
             }
-        case actiontype.SUM_ASSETS:
-            let total = calcjs.getObjectValueSum({ ...state.info })
+        case actiontype.SUM_PAYMENTS:
+            let paymentsTotal = calcjs.getObjectValueSum({ ...state.info })
             return {
                 ...state,
-                total: total,
+                total: paymentsTotal,
             }
-        case actiontype.UPDATE_ASSET:
+        case actiontype.UPDATE_PAYMENT:
             return {
                 ...state,
                 total: action.payload.input,
