@@ -11,7 +11,7 @@ import ExtraodinaryIncome from './ExtraodinaryIncome';
 import RegularPayment from './RegularPayment';
 import ExtraodinaryPayment from './ExtraodinaryPayment';
 
-class Simulator extends Component {
+export class Simulator extends Component {
     componentDidMount() {
         this.props.fetchData()
     }
