@@ -1,5 +1,4 @@
 import * as actiontype from '../actions/type';
-import * as parsejs from '../js/parse';
 import * as calcjs from '../js/calc';
 
 const initialState = {

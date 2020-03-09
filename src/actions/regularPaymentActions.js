@@ -1,6 +1,5 @@
 import * as actiontype from './type';
 import * as inputjs from '../js/input';
-import * as parsejs from '../js/parse';
 export const fetchPaymentsData = () => dispatch => {
     dispatch({
         type: actiontype.FETCH_PAYMENTS_DATA,

@@ -1,6 +1,4 @@
 import * as actiontype from '../actions/type';
-import * as parsejs from '../js/parse';
-import * as inputjs from '../js/input';
 import * as datajs from '../js/data';
 
 const initialState = {

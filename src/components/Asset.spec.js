@@ -108,7 +108,6 @@ describe('container Assets', () => {
             expect(mockUpdateTotal.mock.calls.length).toBe(1)
         });
         it('should not call sumAsset when handleOnBlur', () => {
-            const func = () => { return }
             asset.props().handleOnBlur()
             expect(mocksumAsset.mock.calls.length).toBe(3)
         });
