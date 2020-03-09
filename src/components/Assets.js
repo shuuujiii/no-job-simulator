@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import * as simActions from '../actions/assetActions'
 import * as inputjs from '../js/input';
 
-class Assets extends React.Component {
+export class Assets extends React.Component {
 
     componentDidMount() {
         this.props.fetchAssetData();
@@ -16,20 +16,21 @@ class Assets extends React.Component {
             <div>
                 <h2 className="h2-title">資産</h2>
                 <PriceRow
+                    data-test="money"
                     title={"現金/預金"}
                     id={"money"}
                     handleChange={(key, value) => this.props.updateAssets(key, value)}
                     handleOnBlur={() => this.props.sumAssets()}
-                    // value={this.props.asset.display.money} />
                     value={inputjs.InputComma(this.props.asset.info.money)} />
-
                 <PriceRow
+                    data-test="stock"
                     title={"有価証券"}
                     id={"stock"}
                     handleChange={(key, value) => this.props.updateAssets(key, value)}
                     handleOnBlur={() => this.props.sumAssets()}
                     value={inputjs.InputComma(this.props.asset.info.stock)} />
                 <PriceRow
+                    data-test="otherAsset"
                     title={"その他"}
                     id={"otherAsset"}
                     handleChange={(key, value) => this.props.updateAssets(key, value)}
@@ -37,6 +38,7 @@ class Assets extends React.Component {
                     value={inputjs.InputComma(this.props.asset.info.otherAsset)} />
                 <ColorLine color="gray" />
                 <PriceRow
+                    data-test="asset"
                     title={"資産合計"}
                     id={"asset"}
                     handleChange={(key, value) => this.props.updateTotal(key, value)}

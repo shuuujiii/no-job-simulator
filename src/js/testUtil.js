@@ -1,0 +1,1 @@
+export const getDataTestId = id => `[data-test="${id}"]`
